@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "fila.h"
 
 /*	CONSTANTES	*/
@@ -25,7 +26,7 @@ void estacionamento();
 void estacionamento()
 {
 	FilaL *CarrosEstacionados = fila_cria_l();
-	char opr;
+	char operacao, placaCarro[maxx];
 
 	do
 	{
@@ -33,8 +34,19 @@ void estacionamento()
 		printf("[%c] Inserir Carro\n", INSERIR);
 		printf("[%c] Remover Carro\n", REMOVER);
 		printf("[%c] Sair\n", SAIR);
-		scanf("%c", &opr);
-	} while(opr != SAIR);
+		scanf("%c", &operacao);
+
+		if (operacao == INSERIR)
+		{
+			printf("Insira a placa do novo carro:\n");
+			fgets(placaCarro, maxx, stdin);
+		}
+		else if (operacao == REMOVER)
+		{
+			printf("Insira a placa do carro a remover:\n");
+			fgets(placaCarro, maxx, stdin);
+		}
+	} while(operacao != SAIR);
 }
 
 /**
