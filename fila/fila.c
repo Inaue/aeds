@@ -1,10 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "fila.h"
 
-
-
-static int incr(int i){
+int incr(int i){
 	return (i+1)%N;
 }
 
@@ -47,7 +46,6 @@ void fila_libera_vet(Fila *f){
 }
 
 
-// Lista encadeada
 FilaL *fila_cria_l(){
 	FilaL *f = (FilaL *) malloc(sizeof(FilaL));
 	f->ini = f->fim = NULL;
@@ -102,8 +100,6 @@ Lista* fila_busca_l(FilaL *fila, char informacao[]){
 	}
 	return NULL;
 }
-
-// Funções de impressão
 
 void fila_imprime_vet(Fila *f){
 	int i;
