@@ -9,23 +9,32 @@
 #include <stdlib.h>
 #include "fila.h"
 
+/*	CONSTANTES	*/
+#define INSERIR	'i'
+#define REMOVER	'r'
+#define SAIR	's'
+
+/*	FUNCOES		*/
+/*	*	*	*	*	*	*	*	*	*	*	*	*/
+void estacionamento();
+
+/*	*	*	*	*	*	*	*	*	*	*	*	*/
 /**
- * @brief INTERFACE DO USUARIO PARA A RESOLUCAO DO PROBLEMA DE JOSEPHUS
+ * @brief INTERFACE DO USUARIO PARA A RESOLUCAO DO PROBLEMA DO ESTACIONAMENTO
  */
-void pobrema_de_josue()
+void estacionamento()
 {
-	int totalPessoas, tamnhoDoSalto;
-	
-	printf("________________________________________________________________________\n");
-	printf("Digite a quantidade de pessoas envolvidas no problema de Josephus:\n");
-	scanf(" %i", &totalPessoas);
+	FilaL *CarrosEstacionados = fila_cria_l();
+	char opr;
 
-	printf("________________________________________________________________________\n");
-	printf("Digite a quantidade de saltos a serem dados a cada execucao:\n");
-	scanf(" %i", &tamnhoDoSalto);
-
-	printf("Para se safar, bastar permanecer na %i posicao!\n", josephus(totalPessoas, tamnhoDoSalto));
-	printf("________________________________________________________________________\n");
+	do
+	{
+		printf("Digite a operacao que deseja realizar no estacionamento:\n");
+		printf("[%c] Inserir Carro\n", INSERIR);
+		printf("[%c] Remover Carro\n", REMOVER);
+		printf("[%c] Sair\n", SAIR);
+		scanf("%c", &opr);
+	} while(opr != SAIR);
 }
 
 /**
@@ -37,5 +46,7 @@ void pobrema_de_josue()
  */
 int main(int argc, char** argv) 
 {
+	estacionamento();
+
 	return EXIT_SUCCESS;
 }
