@@ -11,9 +11,11 @@
 #include "fila.h"
 
 /*	CONSTANTES	*/
-#define INSERIR	'i'
-#define REMOVER	'r'
-#define SAIR	's'
+#define INSERIR		'i'
+#define REMOVER		'r'
+#define SAIR		's'
+#define MAX_PLACA	(15 + 1)
+
 
 /*	FUNCOES		*/
 /*	*	*	*	*	*	*	*	*	*	*	*	*/
@@ -26,27 +28,45 @@ void estacionamento();
 void estacionamento()
 {
 	FilaL *CarrosEstacionados = fila_cria_l();
-	char operacao, placaCarro[maxx];
+	char operacao, placaCarro[MAX_PLACA], carroFrente[MAX_PLACA];
 
 	do
-	{
+	{	
+		printf("________________________________________________________________\n");
 		printf("Digite a operacao que deseja realizar no estacionamento:\n");
 		printf("[%c] Inserir Carro\n", INSERIR);
 		printf("[%c] Remover Carro\n", REMOVER);
 		printf("[%c] Sair\n", SAIR);
-		scanf("%c", &operacao);
+		printf("________________________________________________________________\n");
+		scanf(" %c", &operacao);
 
 		if (operacao == INSERIR)
 		{
-			printf("Insira a placa do novo carro:\n");
-			fgets(placaCarro, maxx, stdin);
+			printf("Insira a placa do novo carro (max.: %i):\n", (MAX_PLACA - 1));
+			scanf(" %s", placaCarro);
+			fila_insere_l(CarrosEstacionados, placaCarro);
+			
+			printf("Novo estado do estacionamento:\n");
+			fila_imprime_l(CarrosEstacionados);
 		}
 		else if (operacao == REMOVER)
 		{
-			printf("Insira a placa do carro a remover:\n");
-			fgets(placaCarro, maxx, stdin);
+			printf("Insira a placa do carro a remover (max.: %i):\n", (MAX_PLACA - 1));
+			scanf(" %s", placaCarro);
+			strcpy(carroFrente, fila_retira_l(CarrosEstacionados));
+ 
+			while (strcmp(placaCarro, carroFrente) == 0)
+			{
+				fila_insere_l(CarrosEstacionados, carroFrente);
+				strcpy(carroFrente, fila_retira_l(CarrosEstacionados));
+			}
+
+			printf("Novo estado do estacionamento:\n");
+			fila_imprime_l(CarrosEstacionados);
 		}
 	} while(operacao != SAIR);
+
+	fila_libera_l(CarrosEstacionados);
 }
 
 /**
