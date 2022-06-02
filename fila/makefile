@@ -1,5 +1,5 @@
 
-all: exercicio_de_fila
+all: exercicio_de_fila clean
 
 exercicio_de_fila: main.o fila.o
 	gcc -o exercicio_de_fila main.o fila.o
@@ -11,6 +11,6 @@ fila.o: fila.c fila.h
 	gcc -o fila.o fila.c -c -W -Wall -ansi -pedantic
 
 clean:
-	rm -rf *.o *~ exercicio_de_fila
+	rm -rf *.o
 
 

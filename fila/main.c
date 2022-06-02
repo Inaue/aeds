@@ -28,7 +28,8 @@ void estacionamento();
 void estacionamento()
 {
 	FilaL *CarrosEstacionados = fila_cria_l();
-	char operacao, placaCarro[MAX_PLACA], carroFrente[MAX_PLACA];
+	char operacao, placaCarro[MAX_PLACA];
+	char* carroFrente;
 
 	do
 	{	
@@ -53,14 +54,8 @@ void estacionamento()
 		{
 			printf("Insira a placa do carro a remover (max.: %i):\n", (MAX_PLACA - 1));
 			scanf(" %s", placaCarro);
-			strcpy(carroFrente, fila_retira_l(CarrosEstacionados));
- 
-			while (strcmp(placaCarro, carroFrente) == 0)
-			{
-				fila_insere_l(CarrosEstacionados, carroFrente);
-				strcpy(carroFrente, fila_retira_l(CarrosEstacionados));
-			}
-
+			carroFrente = fila_retira_l(CarrosEstacionados);
+			printf("%s\n", carroFrente);
 			printf("Novo estado do estacionamento:\n");
 			fila_imprime_l(CarrosEstacionados);
 		}

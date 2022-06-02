@@ -27,9 +27,9 @@
 /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
 int     main	                (int argc, char** argv);
 void    exec4                   (void);
-void    exec5			(void);
+void    exec5			        (void);
 void    exec6                   (void);
-int 	soma_positivos		(int x[], int n);
+int 	soma_positivos		    (int x[], int n);
 void    getStr                  (char* str, int size);
 int     parentesesBemFormados   (char* expressao);
 
