@@ -8,6 +8,7 @@
 /*  CABECALHOS  */
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 #include "pilhas.h"
 
 /*  CODIGOS DE ERRO */
@@ -19,6 +20,7 @@
 #define VERDADEIRO  (1 == 1)
 #define FALSO       !VERDADEIRO
 #define MAX_EXPRESS (63 + 1)
+#define MAX_FRASE   (63 + 1)
 
 /*  FUNCOES     */
 /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
@@ -30,7 +32,40 @@ void    exec4                       (void);
 /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
 
 /**
- * @brief INTERFACE PARA O USUARIO INSERIR EXPRESSAO E VALIDA-LA
+ * @brief RESOLUCAO DO EXERCICIO 5
+ */
+void	exec5	(void)
+{
+	char frase[MAX_FRASE], tamanho;
+    Pilha_lst* CaracteresFrase = pilha_lst_cria();
+	int caractere, ePalindromo = VERDADEIRO;
+
+	printf("Digite uma frase (max.: %i):\n", (MAX_FRASE - 1));
+	getStr(frase, MAX_FRASE);
+	tamanho = strlen(frase);
+
+	for (caractere = 0; caractere < tamanho; caractere++)
+    {
+        if (isalnum(frase[caractere]))
+            pilha_lst_push(CaracteresFrase, frase[caractere]);
+    }
+
+    for (caractere = 0; caractere < tamanho; caractere++)
+    {
+        if (isalnum(frase[caractere]))
+            ePalindromo = ePalindromo && (pilha_lst_pop(CaracteresFrase) == frase[caractere]);
+    }
+
+    if (ePalindromo)
+        printf("A frase digitada eh um palindromo!\n");
+    else
+        printf("A frase digitada nao eh um palindromo.\n");
+
+    pilha_lst_libera(CaracteresFrase);
+}
+
+/**
+ * @brief RESOLUCAO DO EXERCICIO 4
  */
 void    exec4   (void)
 {
@@ -130,7 +165,7 @@ void getStr(char* str, int size)
  */
 int main(int argc, char** argv)
 {
-    exec4();
+    exec5();
 
     return EXECUTADO_COM_EXITO;
 }
