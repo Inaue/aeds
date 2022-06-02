@@ -7,3 +7,6 @@ main.o: main.c
 
 pilhas.o: pilhas.c pilhas.h
 	gcc -c pilhas.c
+
+clean:
+	rm -r *.o *~ exercicio_pilha
