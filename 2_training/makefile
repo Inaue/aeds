@@ -1,22 +1,9 @@
 
-all: treinamento
+exercicio_pilha: main.o pilhas.o
+	gcc main.o pilhas.o -o exercicio_pilha
 
-treinamento: main.o fila.o lista.o pilhas.o
-	gcc -o treinamento main.o fila.o lista.o pilhas.o
-
-main.o: main.c fila.h
-	gcc -o main.o main.c -c -W -Wall -ansi -pedantic
-
-fila.o: fila.c fila.h
-	gcc -o fila.o fila.c -c -W -Wall -ansi -pedantic
-
-lista.o: lista.c lista.h
-	gcc -o lista.o lista.c -c -W -Wall -ansi -pedantic
+main.o: main.c
+	gcc -c main.c
 
 pilhas.o: pilhas.c pilhas.h
-	gcc -o pilhas.o pilhas.c -c -W -Wall -ansi -pedantic
-
-clean:
-	rm -rf *.o *~ treinamento
-
-
+	gcc -c pilhas.c
