@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+#include <stdlib.h>
 #include "pilhas.h"
 
 /*  CODIGOS DE ERRO */
@@ -24,12 +25,54 @@
 
 /*  FUNCOES     */
 /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
-int     main	                    (int argc, char** argv);
-void    getStr                      (char* str, int size);
-int     parentesesBemFormados       (char* expressao);
-void    exec4                       (void);
+int     main	                (int argc, char** argv);
+void    exec4                   (void);
+void    exec5			(void);
+void    exec6                   (void);
+int 	soma_positivos		(int x[], int n);
+void    getStr                  (char* str, int size);
+int     parentesesBemFormados   (char* expressao);
 
 /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
+
+int soma_positivos(int x[], int n)
+{
+	int i, somatoria = 0;
+	Pilha_lst* Termos = pilha_lst_cria();
+
+	for (i = n; i > 0; i--)
+	{
+		if (x[i] > 0)
+			pilha_lst_push(Termos, x[i]);
+	}
+
+	while (!pilha_lst_vazia(Termos))
+		somatoria += pilha_lst_pop(Termos);
+
+	pilha_lst_libera(Termos);
+
+	return somatoria;
+}
+
+void exec6()
+{
+	int* vetor;
+	int numeros, i;
+
+    	printf("________________________________________________________________________\n");
+	printf("Digite quantos termos deseja inserir no vetor:\n");
+	scanf(" %i", &numeros);
+	vetor = (int*)malloc(numeros*sizeof(int));
+	for(i = 0; i < numeros; i++)
+	{
+		printf("Digite o %i termo:\n", (i+1));
+		scanf(" %i", &(vetor[i]));
+	}
+
+	printf("O retorno da funcao eh %i\n", soma_positivos(vetor, numeros));
+    	printf("________________________________________________________________________\n");
+	free(vetor);
+}
 
 /**
  * @brief RESOLUCAO DO EXERCICIO 5
@@ -37,18 +80,19 @@ void    exec4                       (void);
 void	exec5	(void)
 {
 	char frase[MAX_FRASE], tamanho;
-    Pilha_lst* CaracteresFrase = pilha_lst_cria();
+    	Pilha_lst* CaracteresFrase = pilha_lst_cria();
 	int caractere, ePalindromo = VERDADEIRO;
 
+    	printf("________________________________________________________________________\n");
 	printf("Digite uma frase (max.: %i):\n", (MAX_FRASE - 1));
 	getStr(frase, MAX_FRASE);
 	tamanho = strlen(frase);
 
 	for (caractere = 0; caractere < tamanho; caractere++)
-    {
-        if (isalnum(frase[caractere]))
-            pilha_lst_push(CaracteresFrase, frase[caractere]);
-    }
+    	{
+       		if (isalnum(frase[caractere]))
+     			pilha_lst_push(CaracteresFrase, frase[caractere]);
+    	}
 
     for (caractere = 0; caractere < tamanho; caractere++)
     {
@@ -60,6 +104,8 @@ void	exec5	(void)
         printf("A frase digitada eh um palindromo!\n");
     else
         printf("A frase digitada nao eh um palindromo.\n");
+
+    printf("________________________________________________________________________\n");
 
     pilha_lst_libera(CaracteresFrase);
 }
@@ -165,7 +211,7 @@ void getStr(char* str, int size)
  */
 int main(int argc, char** argv)
 {
-    exec5();
+    exec6();
 
     return EXECUTADO_COM_EXITO;
 }
