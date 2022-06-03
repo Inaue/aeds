@@ -20,23 +20,42 @@
 /*  FUNCOES     */
 /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
 int     main	                (int argc, char** argv);
-void    lst_imprime_rec         (Lista *l);
 void	exec1			        (void);
 Lista*  lerLst                  (Lista* LstALer);
+void    lst_imprime_rec         (Lista *l);
+void	lst_libera_rec			(Lista* l);
+Lista*	lst_retira_rec			(Lista* l, Lista* celulaAnterior, Lista *celulaAtual, int v);
 
 /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
 
 /**
+ * @brief LIBERA UMA LISTA RECURSIVAMENTE
+ * @param l LISTA A LIBERAR
+ */
+void lst_libera_rec(Lista* l)
+{
+	Lista* tmp;
+	
+	if (l!=NULL){
+		tmp = l->prox;
+		free(l);
+		lst_libera_rec(tmp);
+	}
+}
+
+/**
  * @brief RETIRA UM ELEMENTO DA LISTA RECURSIVAMENTE
  * @param l LISTA
+ * @param celulaAnterior CELULA ANTERIOR A CELULA ATUAL
+ * @param celulaAtual CELULA A SE MANIPULAR
  * @param v VALOR A SER RETIRADO
  * @return  Lista* ENDERECO DA LISTA MODIFICADA
  */
 Lista *lst_retira_rec(Lista* l, Lista* celulaAnterior, Lista *celulaAtual, int v){
 	if(celulaAtual!=NULL && celulaAtual->info!=v)
-        return lst_retira_rec(l, celulaAtual, celulaAtual->prox, v);
+        	return lst_retira_rec(l, celulaAtual, celulaAtual->prox, v);
 	
-    if(celulaAtual==NULL){
+	if(celulaAtual==NULL){
 		printf("Elemento não encontrado\n");
 		return l;
 	}
@@ -103,8 +122,9 @@ void exec1()
     lst_imprime_rec(ListaUsuario);
     ListaUsuario = lst_retira_rec(ListaUsuario, NULL, ListaUsuario, retirar);
     printf("Elementos da lista depois:\n");
-    lst_imprime_rec(ListaUsuario);
-    lst_libera(ListaUsuario);
+    lst_libera_rec(ListaUsuario);
+	ListaUsuario = NULL;
+	lst_imprime_rec(ListaUsuario);
 }
 
 /**
