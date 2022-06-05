@@ -14,7 +14,7 @@ Fila *fila_cria_vet(){
 	return f;
 }
 
-void fila_insere_vet(Fila *f, float v){
+void fila_insere_vet(Fila *f, int v){
 	int fim;
 	if(f->n == N){
 		printf("Capacidade da fila estourou\n");
@@ -25,8 +25,8 @@ void fila_insere_vet(Fila *f, float v){
 	f->n++;
 }
 
-float fila_retira_vet(Fila *f){
-	float v;
+int fila_retira_vet(Fila *f){
+	int v;
 	if(fila_vazia_vet(f)){
 		printf("Fila vazia!\n");
 		exit(1);
@@ -103,7 +103,7 @@ Lista* fila_busca_l(FilaL *fila, char informacao[]){
 
 void fila_imprime_vet(Fila *f){
 	int i;
-	for(i=0;i<f->n; i++) printf("%f \n", f->vet[(f->ini+i)%N]);
+	for(i=0;i<f->n; i++) printf("%i \n", f->vet[(f->ini+i)%N]);
 }
 
 void fila_imprime_l(FilaL *f){
