@@ -1,4 +1,4 @@
-#define N 100
+#define N 10000
 
 struct fila{
 	int n;

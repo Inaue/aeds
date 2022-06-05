@@ -14,7 +14,7 @@
 #define INSERIR		'i'
 #define REMOVER		'r'
 #define SAIR		's'
-#define TAMANHO_PLACA	2
+#define TAMANHO_PLACA	4
 
 
 /*	FUNCOES		*/
@@ -47,8 +47,9 @@ void estacionamento()
 		{
 			printf("Insira a placa do novo carro (inteiro de %i digitos):\n", TAMANHO_PLACA);
 			scanf(" %i", &carroUsuario);
+			printf("Antigo estado do estacionamento:\n");
+			fila_imprime_vet(CarrosEstacionados);
 			fila_insere_vet(CarrosEstacionados, carroUsuario);
-			
 			printf("Novo estado do estacionamento:\n");
 			fila_imprime_vet(CarrosEstacionados);
 		}
@@ -56,8 +57,15 @@ void estacionamento()
 		{
 			printf("Insira a placa do carro a remover (inteiro de %i digitos):\n", TAMANHO_PLACA);
 			scanf(" %i", &carroUsuario);
+			printf("Antigo estado do estacionamento:\n");
+			fila_imprime_vet(CarrosEstacionados);
 			carroFrente = fila_retira_vet(CarrosEstacionados);
-			printf("%i\n", carroFrente);
+
+			while (carroFrente != carroUsuario)
+			{
+				fila_insere_vet(CarrosEstacionados, carroFrente);
+				carroFrente = fila_retira_vet(CarrosEstacionados);
+			}
 			printf("Novo estado do estacionamento:\n");
 			fila_imprime_vet(CarrosEstacionados);
 		}
