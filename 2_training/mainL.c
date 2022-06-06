@@ -2,7 +2,7 @@
  * @file   mainL.c
  * @brief  RESOLUCAO DOS EXERCICIOS DE LISTAS
  * @author Inaue Ferreira da Silva
- * @date   02-06-2022
+ * @date   06-06-2022
  */
 
 /*  CABECALHOS  */
@@ -21,6 +21,7 @@
 /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
 int     main	               	(int argc, char** argv);
 void	exec1			(void);
+void	exec2			(void);
 Lista*  lerLst                  (Lista* LstALer);
 void    lst_imprime_rec         (Lista *l);
 void	lst_libera_rec		(Lista* l);
@@ -30,7 +31,35 @@ Lista*	lst_intercala		(Lista* l1, Lista* l2);
 /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
 
 /**
- * @brief INTERCALA DUAS LISTA
+ * @brief RESOLUCAO DO EXERCICIO 1
+ */
+void exec2()
+{
+    Lista* Lista1Usuario = lst_cria();
+    Lista* Lista2Usuario = lst_cria();
+    Lista* ListasIntercaladas;
+    
+    printf("________________________________________________________________________\n");
+    printf("Lista 1\n");
+    Lista1Usuario = lerLst(Lista1Usuario);
+    printf("Lista 2\n");
+    Lista2Usuario = lerLst(Lista2Usuario);
+    printf("________________________________________________________________________\n");
+    printf("Lista 1:\n");
+    lst_imprime_rec(Lista1Usuario);
+    printf("Lista 2:\n");
+    lst_imprime_rec(Lista2Usuario);
+    printf("Listas intercaladas:\n");
+    ListasIntercaladas = lst_intercala(Lista1Usuario, Lista2Usuario);
+    lst_imprime_rec(ListasIntercaladas);
+    lst_libera_rec(ListasIntercaladas);
+    Lista1Usuario	= NULL;
+    Lista2Usuario	= NULL;
+    ListasIntercaladas	= NULL;
+}
+
+/**
+ * @brief INTERCALA DUAS LISTA (DESTROI AS LISTAS ORIGINAIS)
  * @param l1 PRIMEIRA LISTA
  * @param l2 SEGUNDA LISTA
  * @return Lista*	LISTA RESULTANTE
@@ -38,18 +67,17 @@ Lista*	lst_intercala		(Lista* l1, Lista* l2);
 Lista*	lst_intercala		(Lista* l1, Lista* l2) {
 	Lista* Auxiliar;
 
-	if (lst_vazia(l1))
-		return l2;
+	if (lst_vazia(l2))
+		return l1;
 	
-	if (!lst_vazia(l2))
+	if (!lst_vazia(l1))
 	{
-		Auxiliar = l1->prox;
-		l1->prox = l2;
-		l2->prox = lst_intercala(Auxiliar, l2->prox);
-
+		Auxiliar = l2->prox;
+		l2->prox = l1;
+		l1->prox = lst_intercala(l1->prox, Auxiliar);
 	}
 	
-	return l1;
+	return l2;
 }
 /**
  * @brief LIBERA UMA LISTA RECURSIVAMENTE
@@ -159,7 +187,7 @@ void exec1()
  */
 int main(int argc, char** argv)
 {
-    exec1();
+    exec2();
 
     return EXECUTADO_COM_EXITO;
 }
