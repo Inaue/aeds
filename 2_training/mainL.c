@@ -19,15 +19,38 @@
 
 /*  FUNCOES     */
 /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
-int     main	                (int argc, char** argv);
-void	exec1			        (void);
+int     main	               	(int argc, char** argv);
+void	exec1			(void);
 Lista*  lerLst                  (Lista* LstALer);
 void    lst_imprime_rec         (Lista *l);
-void	lst_libera_rec			(Lista* l);
-Lista*	lst_retira_rec			(Lista* l, Lista* celulaAnterior, Lista *celulaAtual, int v);
+void	lst_libera_rec		(Lista* l);
+Lista*	lst_retira_rec		(Lista* l, Lista* celulaAnterior, Lista *celulaAtual, int v);
+Lista*	lst_intercala		(Lista* l1, Lista* l2);
 
 /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
 
+/**
+ * @brief INTERCALA DUAS LISTA
+ * @param l1 PRIMEIRA LISTA
+ * @param l2 SEGUNDA LISTA
+ * @return Lista*	LISTA RESULTANTE
+ */
+Lista*	lst_intercala		(Lista* l1, Lista* l2) {
+	Lista* Auxiliar;
+
+	if (lst_vazia(l1))
+		return l2;
+	
+	if (!lst_vazia(l2))
+	{
+		Auxiliar = l1->prox;
+		l1->prox = l2;
+		l2->prox = lst_intercala(Auxiliar, l2->prox);
+
+	}
+	
+	return l1;
+}
 /**
  * @brief LIBERA UMA LISTA RECURSIVAMENTE
  * @param l LISTA A LIBERAR
@@ -122,9 +145,9 @@ void exec1()
     lst_imprime_rec(ListaUsuario);
     ListaUsuario = lst_retira_rec(ListaUsuario, NULL, ListaUsuario, retirar);
     printf("Elementos da lista depois:\n");
+    lst_imprime_rec(ListaUsuario);
     lst_libera_rec(ListaUsuario);
-	ListaUsuario = NULL;
-	lst_imprime_rec(ListaUsuario);
+    ListaUsuario = NULL;
 }
 
 /**
