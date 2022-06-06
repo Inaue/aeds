@@ -22,6 +22,7 @@
 int     main	               	(int argc, char** argv);
 void	exec1			(void);
 void	exec2			(void);
+void	exec3			(void);
 Lista*  lerLst                  (Lista* LstALer);
 void    lst_imprime_rec         (Lista *l);
 void	lst_libera_rec		(Lista* l);
@@ -30,6 +31,13 @@ Lista*	lst_intercala		(Lista* l1, Lista* l2);
 
 /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
 
+/**
+ * @brief RESOLUCAO DO EXERCICIO 3
+ */
+void exec3()
+{
+	c
+}
 /**
  * @brief RESOLUCAO DO EXERCICIO 1
  */
@@ -53,9 +61,6 @@ void exec2()
     ListasIntercaladas = lst_intercala(Lista1Usuario, Lista2Usuario);
     lst_imprime_rec(ListasIntercaladas);
     lst_libera_rec(ListasIntercaladas);
-    Lista1Usuario	= NULL;
-    Lista2Usuario	= NULL;
-    ListasIntercaladas	= NULL;
 }
 
 /**
@@ -67,17 +72,17 @@ void exec2()
 Lista*	lst_intercala		(Lista* l1, Lista* l2) {
 	Lista* Auxiliar;
 
-	if (lst_vazia(l2))
-		return l1;
+	if (lst_vazia(l1))
+		return l2;
 	
-	if (!lst_vazia(l1))
+	if (!lst_vazia(l2))
 	{
-		Auxiliar = l2->prox;
-		l2->prox = l1;
-		l1->prox = lst_intercala(l1->prox, Auxiliar);
+		Auxiliar = l1->prox;
+		l1->prox = l2;
+		l2->prox = lst_intercala(Auxiliar, l2->prox);
 	}
 	
-	return l2;
+	return l1;
 }
 /**
  * @brief LIBERA UMA LISTA RECURSIVAMENTE
@@ -187,7 +192,7 @@ void exec1()
  */
 int main(int argc, char** argv)
 {
-    exec2();
+    exec3();
 
     return EXECUTADO_COM_EXITO;
 }
