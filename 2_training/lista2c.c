@@ -1,16 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "lista2c.h"
 
-/*  LISTA DUPLAMENTE ENCADEADA   */
-struct lst2{
-	int info;
-	struct lst2 *ant;
-	struct lst2 *prox;
-};
-
-typedef struct lst2 Lst2;
-
-/*listas circulares*/
 void lst2_circ_imprime(Lst2 *l){
 	Lst2 *p=l;
 
@@ -48,21 +39,36 @@ void lst2_circ_libera(Lst2 *l){
 	}
 }
 
-Lst2 *lst_circ_insere(Lst2 *l, int v){
+Lst2 *lst2_circ_insere_ordenada(Lst2 *l, int v){
 	Lst2* novo = (Lst2*)malloc(sizeof(Lst2));
-	Lst2* UltimoLst;
+	Lst2* posInserir;
 
-	novo->prox=l;
 	novo->info=v;
 
 	if(l==NULL)
-		novo->ant=NULL;
+	{
+		novo->ant=novo;
+		novo->prox=novo;
+		
+		return novo;
+	}
 	else
 	{
-		for (UltimoLst = l; UltimoLst->prox != l; UltimoLst = UltimoLst->prox);
+		for (posInserir=l; !((posInserir->info<v) && (posInserir->prox->info>=v)) && (posInserir->prox!=l); posInserir=posInserir->prox);
 
-		l->ant=novo;
+		posInserir->prox->ant=novo;
+		novo->prox=posInserir->prox;
+		posInserir->prox=novo;
+		novo->ant=posInserir;
 	}
 
-	return novo;
+	if (l->info>novo->info)
+		return novo;
+
+	return l;
+}
+
+Lst2* lst2_cria()
+{
+	return NULL;
 }

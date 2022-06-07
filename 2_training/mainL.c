@@ -8,6 +8,7 @@
 /*  CABECALHOS  */
 #include <stdio.h>
 #include "lista.h"
+#include "lista2c.h"
 
 /*  CODIGOS DE ERRO */
 #define EXECUTADO_COM_EXITO     0
@@ -36,10 +37,32 @@ Lista*	lst_intercala		(Lista* l1, Lista* l2);
  */
 void exec3()
 {
-	c
+    int elemento;
+    Lst2* ListaUsuario = lst2_cria();
+    
+    printf("________________________________________________________________________\n");
+    printf("Lista Circular Duplamente Encadeada Ordenada\n");
+    printf("________________________________________________________________________\n");
+    printf("Digite 3 (tres) elementos para a lista:\n");
+    scanf(" %i", &elemento);
+    ListaUsuario = lst2_circ_insere_ordenada(ListaUsuario, elemento);
+    scanf(" %i", &elemento);
+    ListaUsuario = lst2_circ_insere_ordenada(ListaUsuario, elemento);
+    scanf(" %i", &elemento);
+    ListaUsuario = lst2_circ_insere_ordenada(ListaUsuario, elemento);
+    printf("________________________________________________________________________\n");
+    printf("Lista de frente pra tras:\n");
+    lst2_circ_imprime(ListaUsuario);
+    printf("Primeiro elemento da lista:\n");
+    printf("%i\n", ListaUsuario->ant->prox->info);
+    printf("Ultimo elemento da lista:\n");
+    printf("%i\n", ListaUsuario->ant->info);
+
+    lst2_circ_libera(ListaUsuario);
+    ListaUsuario = NULL;
 }
 /**
- * @brief RESOLUCAO DO EXERCICIO 1
+ * @brief RESOLUCAO DO EXERCICIO 2
  */
 void exec2()
 {

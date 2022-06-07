@@ -4,8 +4,8 @@ all: exercicio_pilha exercicio_lista clean
 exercicio_pilha: mainP.o pilhas.o
 	gcc mainP.o pilhas.o -o exercicio_pilha
 
-exercicio_lista: mainL.o lista.o
-	gcc mainL.o lista.o -o exercicio_lista
+exercicio_lista: mainL.o lista.o lista2c.o
+	gcc mainL.o lista.o lista2c.o -o exercicio_lista
 
 mainP.o: mainP.c
 	gcc -c mainP.c
@@ -18,6 +18,9 @@ pilhas.o: pilhas.c pilhas.h
 
 lista.o: lista.c lista.h
 	gcc -c lista.c
+
+lista2c.o: lista2c.c lista2c.h
+	gcc -c lista2c.c
 
 clean:
 	rm -r *.o
