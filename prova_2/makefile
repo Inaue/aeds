@@ -1,11 +1,8 @@
 
 all: resolucao clean
 
-resolucao: main.o lista.o pilhas.o fila2.o
-	gcc main.o lista.o pilhas.o fila2.o -o resolucao
-
-lista.o: lista.c lista.h 
-	gcc -c lista.c
+resolucao: main.o pilhas.o fila2.o
+	gcc main.o pilhas.o fila2.o -o resolucao
 
 pilhas.o: pilhas.c pilhas.h
 	gcc -c pilhas.c

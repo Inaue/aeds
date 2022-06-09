@@ -7,7 +7,6 @@
 
 /*  CABECALHOS  */
 #include <stdio.h>
-#include "lista.h"
 #include "pilhas.h"
 #include "fila2.h"
 
@@ -34,13 +33,13 @@ void interface_problema(void)
 	int instrucoes, i, inst, num, saidaL, saidaP, saidaF, saidaFpri; 
 	Pilha_vet* testeP;
 	Fila2* testeF;
-	Fila2* testeFpri;
+	FilaL2* testeFpri;
 
 	while(VERDADEIRO)
 	{
 		testeP = pilha_vet_cria();
 		testeF = fila_cria_vet();
-		testeFpri = fila_cria_vet();
+		testeFpri = fila_cria_l();
 
 		scanf("%i", &instrucoes);
 
@@ -52,13 +51,13 @@ void interface_problema(void)
 			{
 				pilha_vet_push(testeP, num);
 				fila_insere_vet(testeF, num);
-				fila_insere_vet(testeFpri, num);
+				fila_insere_l(testeFpri, num);
 			}
 			else
 			{
 				saidaP = pilha_vet_pop(testeP);
 				saidaF = fila_retira_vet(testeF);
-				saidaFpri = fila_retira_vet(testeFpri);
+				saidaFpri = fila_retira_l(testeFpri);
 
 				printf("%i\n", saidaP);
 				printf("%i\n", saidaF);
@@ -68,7 +67,7 @@ void interface_problema(void)
 
 		pilha_vet_libera(testeP);
 		fila_libera_vet(testeF);
-		fila_libera_vet(testeFpri);
+		fila_libera_l(testeFpri);
 	}
 }
 
