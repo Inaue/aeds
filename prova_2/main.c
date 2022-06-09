@@ -31,7 +31,45 @@ void        interface_problema 	(void);
  */
 void interface_problema(void)
 {
+	int instrucoes, i, inst, num, saidaL, saidaP, saidaF, saidaFpri; 
+	Pilha_vet* testeP;
+	Fila2* testeF;
+	Fila2* testeFpri;
 
+	while(VERDADEIRO)
+	{
+		testeP = pilha_vet_cria();
+		testeF = fila_cria_vet();
+		testeFpri = fila_cria_vet();
+
+		scanf("%i", &instrucoes);
+
+		for (i = 0; i < instrucoes; i++)
+		{
+			scanf("%i %i", &inst, &num);
+
+			if (inst == 1)
+			{
+				pilha_vet_push(testeP, num);
+				fila_insere_vet(testeF, num);
+				fila_insere_vet(testeFpri, num);
+			}
+			else
+			{
+				saidaP = pilha_vet_pop(testeP);
+				saidaF = fila_retira_vet(testeF);
+				saidaFpri = fila_retira_vet(testeFpri);
+
+				printf("%i\n", saidaP);
+				printf("%i\n", saidaF);
+				printf("%i\n", saidaFpri);
+			}
+		}
+
+		pilha_vet_libera(testeP);
+		fila_libera_vet(testeF);
+		fila_libera_vet(testeFpri);
+	}
 }
 
 /**

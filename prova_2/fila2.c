@@ -73,3 +73,10 @@ void fila_libera_vet(Fila2*f){
 	free(f);
 }
 
+// Funções de impressão
+
+void fila_imprime_vet(Fila2*f){
+	int i;
+	for(i=0;i<f->n; i++) printf("%i \n", f->vet[(f->ini+i)%N]);
+}
+

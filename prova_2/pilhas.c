@@ -10,7 +10,7 @@ Pilha_vet *pilha_vet_cria() {
 	return p;
 }
 
-void pilha_vet_push(Pilha_vet *p, char v) {
+void pilha_vet_push(Pilha_vet *p, int v) {
 	if (p->n == N) {
 		printf("A capacidade da pilha estorou.");
 		exit(1);
@@ -19,7 +19,7 @@ void pilha_vet_push(Pilha_vet *p, char v) {
 	p->vet[p->n++] = v;
 }
 
-char pilha_vet_pop(Pilha_vet *p) {
+int pilha_vet_pop(Pilha_vet *p) {
 	if (pilha_vet_vazia(p)) {
 		printf("Pilha vazia.");
 		exit(1);
@@ -40,7 +40,7 @@ void pilha_vet_imprime(Pilha_vet *p){
 	int i;
 
 	for(i=p->n-1;i>=0;i--){
-		printf("%c\n", p->vet[i]);
+		printf("%i\n", p->vet[i]);
 	}
 }
 
