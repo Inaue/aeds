@@ -2,7 +2,7 @@
  * @file   main.c
  * @brief  ARQUIVO PRINCIPAL DO PROGRAMA PARA A PROVA 1
  * @author Inaue Ferreira da Silva
- * @date   05-07-2022
+ * @date   06-10-2022
  */
 
 /*  CABECALHOS  */
@@ -64,7 +64,7 @@ void interface_problema(void)
 	FilaL2* testeFpri;
 
 	while (VERDADEIRO)
-	{
+	{//!EOF
 		ehPilha		= VERDADEIRO;
 		ehFila		= VERDADEIRO;
 		ehFilaP		= VERDADEIRO;
