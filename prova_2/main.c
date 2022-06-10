@@ -27,19 +27,23 @@ void	fila_insere_ordenado_l	(FilaL2 *l, int v);
 
 /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
 
-void fila_insere_ordenado_l(FilaL2 *l, int v){
-	Lista *novo;
-	novo=(Lista *)malloc(sizeof(Lista));
+/**
+ * @brief INSERE ELEMENTO NA FILA DE PRIORIDADE EM ORDEM DE PRIORIDADE
+ * @param l	Fila
+ * @param v	valor a inserir
+ */
+void fila_insere_ordenado_l(FilaL2 *f, int v){
+	Lista *novo; novo=(Lista *)malloc(sizeof(Lista));
 	novo->info=v;
 	Lista *ant=NULL;
-	Lista *p=l->ini;
+	Lista *p=f->ini;
 	while(p!=NULL && p->info>v){
 		ant=p;
 		p=p->prox;
 	}
 	if(ant==NULL){
-		novo->prox=l->ini;
-		l->ini=novo;
+		novo->prox=f->ini;
+		f->ini=novo;
 	}
 	else{
 		ant->prox=novo;
@@ -54,11 +58,12 @@ void interface_problema(void)
 {
 	int instrucoes, i, inst, num, saidaL, saidaP, saidaF, saidaFpri;
 	int ehPilha, ehFila, ehFilaP;
+	FILE* entrada = fopen("entrada.txt", "r");
 	Pilha_vet* testeP;
 	Fila2* testeF;
 	FilaL2* testeFpri;
 
-	while(VERDADEIRO)
+	while (VERDADEIRO)
 	{
 		ehPilha		= VERDADEIRO;
 		ehFila		= VERDADEIRO;
@@ -67,11 +72,14 @@ void interface_problema(void)
 		testeF		= fila_cria_vet();
 		testeFpri	= fila_cria_l();
 
-		scanf(" %i", &instrucoes);
+		fscanf(entrada, " %i", &instrucoes);
+
+		if (feof(entrada))
+			break;
 
 		for (i = 0; i < instrucoes; i++)
 		{
-			scanf(" %i %i", &inst, &num);
+			fscanf(entrada, " %i %i", &inst, &num);
 
 			if (inst == 1)
 			{
