@@ -1,8 +1,8 @@
 /**
  * @file   main.c
- * @brief  ARQUIVO PRINCIPAL DO PROGRAMA PARA A PROVA 1
+ * @brief  ARQUIVO PRINCIPAL DO PROGRAMA PARA A PROVA 2
  * @author Inaue Ferreira da Silva
- * @date   05-07-2022
+ * @date   06-10-2022
  */
 
 /*  CABECALHOS  */
@@ -21,8 +21,8 @@
 /*  FUNCOES     */
 /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
 
-int	main			(int argc, char** argv);
-void	interface_problema 	(void);
+int		main					(int argc, char** argv);
+void	interface_problema 		(void);
 void	fila_insere_ordenado_l	(FilaL2 *l, int v);
 
 /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
