@@ -64,18 +64,18 @@ void interface_problema(void)
 	FilaL2* testeFpri;
 
 	while (VERDADEIRO)
-	{
+	{//!EOF
+		fscanf(entrada, " %i", &instrucoes);
+
+		if (feof(entrada))
+			break;
+		
 		ehPilha		= VERDADEIRO;
 		ehFila		= VERDADEIRO;
 		ehFilaP		= VERDADEIRO;
 		testeP		= pilha_vet_cria();
 		testeF		= fila_cria_vet();
 		testeFpri	= fila_cria_l();
-
-		fscanf(entrada, " %i", &instrucoes);
-
-		if (feof(entrada))
-			break;
 
 		for (i = 0; i < instrucoes; i++)
 		{
