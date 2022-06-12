@@ -6,8 +6,15 @@ struct fila{
 	int vet[N];
 };
 
+struct carro
+{
+	int placa;
+	int idadeMotorista;
+};
+typedef struct carro Carro;
+
 struct lista{
-	char info[20];
+	Carro info;
 	struct lista *prox;
 };
 typedef struct lista Lista;
@@ -31,9 +38,11 @@ void fila_libera_vet(Fila *f);
 void fila_imprime_vet(Fila *f);
 
 FilaL *fila_cria_l();
-void fila_insere_l(FilaL *f, char v[20]);
-char *fila_retira_l(FilaL *f);
+void fila_insere_l(FilaL *f, Carro v);
+Carro fila_retira_l(FilaL *f);
 int fila_vazia_l(FilaL *f);
 void fila_libera_l(FilaL *f);
 void fila_imprime_l(FilaL *f);
-Lista* fila_busca_l(FilaL *fila, char informacao[]);
+Lista* fila_busca_l(FilaL *fila, Carro informacao);
+void fila_insere_ordenado_l(FilaL *f, Carro v);
+void fila_retira_v_l(FilaL *f, Carro v);

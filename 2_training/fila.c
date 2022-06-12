@@ -52,19 +52,18 @@ FilaL *fila_cria_l(){
 	return f;
 }
 
-void fila_insere_l(FilaL *f,char *v){
+void fila_insere_l(FilaL *f,Carro v){
 	Lista *n = (Lista *) malloc(sizeof(Lista));
-	int i;
-	for(i=0;i<20;i++) n->info[i]=v[i];
+	n->info=v;
 	n->prox = NULL;
 	if(f->fim != NULL) f->fim->prox = n;
 	else f->ini = n;
 	f->fim = n;
 }
 
-char *fila_retira_l(FilaL *f){
+Carro fila_retira_l(FilaL *f){
 	Lista *t;
-	char *v;
+	Carro v;
 	if(fila_vazia_l(f)){
 		printf("Fila vazia!");
 		exit(1);
@@ -91,10 +90,10 @@ void fila_libera_l(FilaL *f){
 	free(f);
 }
 
-Lista* fila_busca_l(FilaL *fila, char informacao[]){
+Lista* fila_busca_l(FilaL *fila, Carro informacao){
 	Lista *q;
 	for(q=fila->ini; q!=NULL; q=q->prox){
-		if(strcmp(informacao, q->info)==0){
+		if(q->info.placa==informacao.placa){
 			return q;
 		}
 	}
@@ -108,5 +107,46 @@ void fila_imprime_vet(Fila *f){
 
 void fila_imprime_l(FilaL *f){
 	Lista *q;
-	for(q=f->ini; q!= NULL; q=q->prox) printf("\t%s\n",q->info);
+	for(q=f->ini; q!= NULL; q=q->prox)
+		printf("\tPlaca : %i, Idade do Motorista : %i\n",q->info.placa, q->info.idadeMotorista);
+}
+
+void fila_insere_ordenado_l(FilaL *f, Carro v){
+	Lista *novo;
+	Carro Inicio, Frente;
+	novo=(Lista *)malloc(sizeof(Lista));
+	novo->info=v;
+	Lista *ant=NULL;
+	Lista *p=f->ini;
+	while((p!=NULL) && (p->info.idadeMotorista > v.idadeMotorista)){
+		ant=p;
+		p=p->prox;
+	}
+	if(ant==NULL){
+		novo->prox=f->ini;
+		f->ini=novo;
+	}
+	else{
+		ant->prox=novo;
+		novo->prox=p;
+	}
+}
+
+void fila_retira_v_l(FilaL *f, Carro v){
+	Lista *p=f->ini;
+	Lista *ant=NULL;
+	while(p!=NULL && p->info.placa!=v.placa){
+		ant=p;
+		p=p->prox;
+	}
+	if(p==NULL){
+		printf("Elemento não encontrado\n");
+	}
+	if(ant==NULL){
+		f->ini=p->prox;
+	}
+	else{
+		ant->prox=p->prox;
+	}
+	free(p);
 }
