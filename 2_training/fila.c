@@ -112,15 +112,12 @@ void fila_imprime_l(FilaL *f){
 }
 
 void fila_insere_ordenado_l(FilaL *f, Carro v){
-	Lista *novo;
 	Carro Inicio;
-	novo=(Lista *)malloc(sizeof(Lista));
-	novo->info=v;
 
 	if (fila_vazia_l(f))
 		fila_insere_l(f, v);
 	else if (	(f->ini == f->fim) &&
-				(v.idadeMotorista > f->ini->info.idadeMotorista)	)
+			(v.idadeMotorista > f->ini->info.idadeMotorista)	)
 	{
 		fila_insere_l(f, v);
 		fila_insere_l(f, fila_retira_l(f));
@@ -138,7 +135,7 @@ void fila_insere_ordenado_l(FilaL *f, Carro v){
 		fila_insere_l(f, fila_retira_l(f));
 
 		while(	(f->ini->info.idadeMotorista > v.idadeMotorista) &&
-				(f->ini->info.placa != Inicio.placa)	)
+			(f->ini->info.placa != Inicio.placa)	)
 			fila_insere_l(f, fila_retira_l(f));
 
 		fila_insere_l(f, v);
@@ -149,20 +146,26 @@ void fila_insere_ordenado_l(FilaL *f, Carro v){
 }
 
 void fila_retira_v_l(FilaL *f, Carro v){
-	Lista *p=f->ini;
-	Lista *ant=NULL;
-	while(p!=NULL && p->info.placa!=v.placa){
-		ant=p;
-		p=p->prox;
+	Carro Inicio = f->ini->info;
+
+	if (fila_vazia_l(f))
+		return;
+	else if ((f->ini==f->fim) && (f->ini->info.placa == v.placa))
+		fila_retira_l(f);
+	else if (f->ini->info.placa == v.placa)
+		fila_retira_l(f);
+	else
+	{
+		fila_insere_l(f, fila_retira_l(f));
+
+		while ((f->ini->info.placa != v.placa) && (f->ini->info.placa != Inicio.placa))
+			fila_insere_l(f, fila_retira_l(f));
+
+		if(f->ini->info.placa == v.placa)
+			fila_retira_l(f);
+
+		while (f->ini->info.placa != Inicio.placa)
+			fila_insere_l(f, fila_retira_l(f));
 	}
-	if(p==NULL){
-		printf("Elemento não encontrado\n");
-	}
-	if(ant==NULL){
-		f->ini=p->prox;
-	}
-	else{
-		ant->prox=p->prox;
-	}
-	free(p);
 }
+
