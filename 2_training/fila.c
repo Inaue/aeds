@@ -113,22 +113,38 @@ void fila_imprime_l(FilaL *f){
 
 void fila_insere_ordenado_l(FilaL *f, Carro v){
 	Lista *novo;
-	Carro Inicio, Frente;
+	Carro Inicio;
 	novo=(Lista *)malloc(sizeof(Lista));
 	novo->info=v;
-	Lista *ant=NULL;
-	Lista *p=f->ini;
-	while((p!=NULL) && (p->info.idadeMotorista > v.idadeMotorista)){
-		ant=p;
-		p=p->prox;
+
+	if (fila_vazia_l(f))
+		fila_insere_l(f, v);
+	else if (	(f->ini == f->fim) &&
+				(v.idadeMotorista > f->ini->info.idadeMotorista)	)
+	{
+		fila_insere_l(f, v);
+		fila_insere_l(f, fila_retira_l(f));
 	}
-	if(ant==NULL){
-		novo->prox=f->ini;
-		f->ini=novo;
+	else if (v.idadeMotorista > f->ini->info.idadeMotorista)
+	{
+		fila_insere_l(f, v);
+
+		while (f->ini->info.placa != v.placa)
+			fila_insere_l(f, fila_retira_l(f));
 	}
-	else{
-		ant->prox=novo;
-		novo->prox=p;
+	else
+	{
+		Inicio = f->ini->info;
+		fila_insere_l(f, fila_retira_l(f));
+
+		while(	(f->ini->info.idadeMotorista > v.idadeMotorista) &&
+				(f->ini->info.placa != Inicio.placa)	)
+			fila_insere_l(f, fila_retira_l(f));
+
+		fila_insere_l(f, v);
+
+		while(f->ini->info.placa != Inicio.placa)
+			fila_insere_l(f, fila_retira_l(f));
 	}
 }
 

@@ -49,9 +49,9 @@ void exec7()
 		if (operacao == INSERIR)
 		{
 			printf("Insira a placa do novo carro (inteiro de %i digitos):\n", TAMANHO_PLACA);
-			scanf(" %i", &(CarroUsuario.placa));
+			scanf(" %d", &(CarroUsuario.placa));
 			printf("Insira a idade do motorista:\n");
-			scanf(" %i", &(CarroUsuario.idadeMotorista));
+			scanf(" %d", &(CarroUsuario.idadeMotorista));
 			printf("Antigo estado do estacionamento:\n");
 			fila_imprime_l(Idosos);
 			fila_imprime_l(NaoIdosos);
@@ -68,7 +68,7 @@ void exec7()
 		else if (operacao == REMOVER)
 		{
 			printf("Insira a placa do carro a remover (inteiro de %i digitos):\n", TAMANHO_PLACA);
-			scanf(" %i", &(CarroUsuario.placa));
+			scanf(" %d", &(CarroUsuario.placa));
 			printf("Antigo estado do estacionamento:\n");
 			fila_imprime_l(Idosos);
 			fila_imprime_l(NaoIdosos);
