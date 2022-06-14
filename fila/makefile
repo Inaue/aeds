@@ -1,5 +1,5 @@
 
-all: exercicio_de_fila clean
+all: exercicio_de_fila 
 
 exercicio_de_fila: main.o fila.o
 	gcc -o exercicio_de_fila main.o fila.o
