@@ -1,4 +1,3 @@
-//ARVORE BINARIA
 struct arv{
 	char info;
 	struct arv *esq;
@@ -18,8 +17,6 @@ void arv_imprime_posordem(Arv* a);
 
 static int max2(int a,int b);
 int arv_altura(Arv *a);
-
-//ARVORE COM FILHOS VARIADOS
 
 struct arvvar{
 	int info;

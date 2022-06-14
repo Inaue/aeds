@@ -66,8 +66,6 @@ int arv_altura(Arv *a){
 		return 1 + max2 (arv_altura(a->esq),arv_altura(a->dir));
 }
 
-//ARVORE COM FILHOS VARIAVEIS
-
 ArvVar *arvv_cria(int v){
 	ArvVar *a = (ArvVar*) malloc (sizeof(ArvVar));
 	a->info = v;
