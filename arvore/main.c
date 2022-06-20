@@ -24,20 +24,33 @@ int		main					(int argc, char** argv);
 
 /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
 
+Arv* arv_insere_ordenado(Arv* Arv_inserir, char dado)
+{
+	if (Arv_inserir == NULL)
+		return arv_cria(dado, arv_criavazia(), arv_criavazia());
+
+	if (dado > Arv_inserir->info)
+		Arv_inserir->dir = arv_insere_ordenado(Arv_inserir->dir, dado);
+	else 
+		Arv_inserir->esq = arv_insere_ordenado(Arv_inserir->esq, dado);
+
+	return Arv_inserir;
+}
 void aula()
 {
-	Arv* A1 = arv_cria('c', arv_criavazia(), arv_criavazia());
-	Arv* A2 = arv_cria('d', arv_criavazia(), arv_criavazia());
-	Arv* A3 = arv_cria('b', A1, arv_criavazia());
-	Arv* A4 = arv_cria('a', A3, A2);
+	Arv* avri = arv_criavazia();
+
+	avri = arv_insere_ordenado(avri, 'c');
+	avri = arv_insere_ordenado(avri, 'a');
+	avri = arv_insere_ordenado(avri, 'b');
+	avri = arv_insere_ordenado(avri, 'd');
 
 	printf("Pre-ordem:\n");
-	arv_imprime_preordem(A4);
+	arv_imprime_preordem(avri);
 	printf("\nSimetria:\n");
-	arv_imprime_simetrica(A4);
+	arv_imprime_simetrica(avri);
 	printf("\nPos-ordem:\n");
-	arv_imprime_posordem(A4);
-	/*A4 = arv_libera(A4);*/
+	arv_imprime_posordem(avri);
 }
 
 /**
