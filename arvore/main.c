@@ -20,13 +20,23 @@
 /*  FUNCOES     */
 /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
 
-int	main		(int argc, char** argv);
-int	arv_cont_folha	(Arv* Contar);
-int	arv_cont_galho1	(Arv* Contar);
-int	arv_cont_galho2	(Arv* Contar);
+int	main			(int argc, char** argv);
+void	demonstracao		(void);
+Arv*	arv_insere_ordenado	(Arv* Arv_inserir, char dado);
+void	arv_frequencia_c	(Arv* Analisar, int* histograma);
+int	arv_cont_folha		(Arv* Contar);
+int	arv_cont_galho1		(Arv* Contar);
+int	arv_cont_galho2		(Arv* Contar);
 
 /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
 
+/**
+ * @brief INSERIR ELEMENTO NA ARVORE DE ACORDO COM OS VALORES JA INSERIDOS
+ *
+ * @param Arv_inserir	ARVORE AONDE INSERIR DADO
+ * @param Arv_inserir	DADO
+ * @return Arv*		NOVO ENDERECO DA ARVORE
+ */
 Arv* arv_insere_ordenado(Arv* Arv_inserir, char dado)
 {
 	if (Arv_inserir == NULL)
@@ -40,6 +50,12 @@ Arv* arv_insere_ordenado(Arv* Arv_inserir, char dado)
 	return Arv_inserir;
 }
 
+/**
+ * @brief CONTAR GALHOS COM EXATAMENTE 1 FILHO
+ *
+ * @param Contar	ENDERECO DA ARVORE A SER ANALISADA
+ * @return int		QUANTIDADE DE GALHOS
+ */
 int arv_cont_galho1(Arv* Contar)
 {
 	if (Contar == NULL)
@@ -52,6 +68,12 @@ int arv_cont_galho1(Arv* Contar)
 	return (arv_cont_galho1(Contar->esq) + arv_cont_galho1(Contar->dir));
 }
 
+/**
+ * @brief CONTAR GALHOS COM EXATAMENTE 2 FILHO
+ *
+ * @param Contar	ENDERECO DA ARVORE A SER ANALISADA
+ * @return int		QUANTIDADE DE GALHOS
+ */
 int arv_cont_galho2(Arv* Contar)
 {
 	if (Contar == NULL)
@@ -63,6 +85,12 @@ int arv_cont_galho2(Arv* Contar)
 	return (arv_cont_galho2(Contar->esq) + arv_cont_galho2(Contar->dir));
 }
 
+/**
+ * @brief CONTAR FOLHAS
+ *
+ * @param Contar	ENDERECO DA ARVORE A SER ANALISADA
+ * @return int		QUANTIDADE DE FOLHAS
+ */
 int arv_cont_folha(Arv* Contar)
 {
 	if (Contar == NULL)
@@ -74,6 +102,12 @@ int arv_cont_folha(Arv* Contar)
 	return (arv_cont_folha(Contar->esq) + arv_cont_folha(Contar->dir));
 }
 
+/**
+ * @brief PREENCHE HISTOGRAMA DE ACORDO COM A FREQUENCIA DE LETRAS NA ARVORE
+ *
+ * @param Analisar	ARVORE A ANALISAR
+ * @param histograma	ENDERECO DO HISTOGRAMA A EDITAR
+ */
 void arv_frequencia_c(Arv* Analisar, int* histograma)
 {
 	int c;
@@ -94,7 +128,10 @@ void arv_frequencia_c(Arv* Analisar, int* histograma)
 	arv_frequencia_c(Analisar->dir, histograma);
 }
 
-void aula()
+/**
+ * @brief INTERFACE PARA O USUARIO DEMONSTRANDO AS FUNCOES EM FUNCIONAMENTO
+ */
+void demonstracao()
 {
 	Arv* avri = arv_criavazia();
 	int c, meuHistograma[26] = { 0 };
@@ -134,7 +171,7 @@ void aula()
  */
 int main(int argc, char** argv)
 {
-    aula();
+    demonstracao();
 
     return EXECUTADO_COM_EXITO;
 }
