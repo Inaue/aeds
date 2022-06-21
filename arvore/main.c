@@ -73,6 +73,7 @@ int arv_cont_folha(Arv* Contar)
 
 	return (arv_cont_folha(Contar->esq) + arv_cont_folha(Contar->dir));
 }
+
 void aula()
 {
 	Arv* avri = arv_criavazia();

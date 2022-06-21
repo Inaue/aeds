@@ -18,26 +18,29 @@ int arv_vazia(Arv* a){
 }
 
 void arv_imprime_preordem(Arv* a){
-	if(!arv_vazia(a)){
-		printf("%c\t",a->info);
+	if (a != NULL)
+	{
+		printf("%c\t", a->info);
 		arv_imprime_preordem(a->esq);
 		arv_imprime_preordem(a->dir);
 	}
 }
 
 void arv_imprime_simetrica(Arv* a){
-	if(!arv_vazia(a)){
+	if (a != NULL)
+	{
 		arv_imprime_simetrica(a->esq);
-		printf("%c\t",a->info);
+		printf("%c\t", a->info);
 		arv_imprime_simetrica(a->dir);
 	}
 }
 
 void arv_imprime_posordem(Arv *a){
-	if(!arv_vazia(a)){
+	if (a != NULL)
+	{
 		arv_imprime_posordem(a->esq);
 		arv_imprime_posordem(a->dir);
-		printf("%c\t",a->info);
+		printf("%c\t", a->info);
 	}
 }
 
