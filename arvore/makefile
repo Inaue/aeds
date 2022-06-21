@@ -11,6 +11,6 @@ arvore.o: arvore.c arvore.h
 	gcc -o arvore.o arvore.c -c -W -Wall -ansi -pedantic
 
 clean:
-	rm -rf *.o
+	rm -rf *.o exercicio_de_arvore
 
 

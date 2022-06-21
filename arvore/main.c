@@ -20,7 +20,10 @@
 /*  FUNCOES     */
 /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
 
-int		main					(int argc, char** argv);
+int	main		(int argc, char** argv);
+int	arv_cont_folha	(Arv* Contar);
+int	arv_cont_galho1	(Arv* Contar);
+int	arv_cont_galho2	(Arv* Contar);
 
 /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
 
@@ -36,6 +39,40 @@ Arv* arv_insere_ordenado(Arv* Arv_inserir, char dado)
 
 	return Arv_inserir;
 }
+
+int arv_cont_galho1(Arv* Contar)
+{
+	if (Contar == NULL)
+		return 0;
+
+	if (	((Contar->esq != NULL) && (Contar->dir == NULL)) ||
+		((Contar->esq == NULL) && (Contar->dir != NULL))	)
+		return (1 + arv_cont_galho1(Contar->esq) + arv_cont_galho1(Contar->dir));
+
+	return (arv_cont_galho1(Contar->esq) + arv_cont_galho1(Contar->dir));
+}
+
+int arv_cont_galho2(Arv* Contar)
+{
+	if (Contar == NULL)
+		return 0;
+
+	if ((Contar->esq != NULL) && (Contar->dir != NULL))
+		return (1 + arv_cont_galho2(Contar->esq) + arv_cont_galho2(Contar->dir));
+
+	return (arv_cont_galho2(Contar->esq) + arv_cont_galho2(Contar->dir));
+}
+
+int arv_cont_folha(Arv* Contar)
+{
+	if (Contar == NULL)
+		return 0;
+
+	if ((Contar->esq == NULL) && (Contar->dir == NULL))
+		return 1;
+
+	return (arv_cont_folha(Contar->esq) + arv_cont_folha(Contar->dir));
+}
 void aula()
 {
 	Arv* avri = arv_criavazia();
@@ -44,7 +81,9 @@ void aula()
 	avri = arv_insere_ordenado(avri, 'a');
 	avri = arv_insere_ordenado(avri, 'b');
 	avri = arv_insere_ordenado(avri, 'd');
-
+	printf("Total de Folha: %i\n", arv_cont_folha(avri));
+	printf("Total de Galhos com 1 filho: %i\n", arv_cont_galho1(avri));
+	printf("Total de Galhos com 2 filhos: %i\n", arv_cont_galho2(avri));
 	printf("Pre-ordem:\n");
 	arv_imprime_preordem(avri);
 	printf("\nSimetria:\n");
