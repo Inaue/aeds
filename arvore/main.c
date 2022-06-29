@@ -2,7 +2,7 @@
  * @file   main.c
  * @brief  RESOLUCAO DOS EXERCICIOS DE ARVORES
  * @author Inaue Ferreira da Silva
- * @date   06-10-2022
+ * @date   06-29-2022
  */
 
 /*  CABECALHOS  */
@@ -149,7 +149,7 @@ void demonstracao()
 		printf("Aparicoes da letra '%c': %i\n", ('a' + c), meuHistograma[c]);
 
 	printf("_________________________________________________\n");
-	printf("Total de Folha: \t\t%i\n", arv_cont_folha(avri));
+	printf("Total de Folhas: \t\t%i\n", arv_cont_folha(avri));
 	printf("Total de Galhos com 1 filho: \t%i\n", arv_cont_galho1(avri));
 	printf("Total de Galhos com 2 filhos: \t%i\n", arv_cont_galho2(avri));
 	printf("_________________________________________________\n");
@@ -160,6 +160,7 @@ void demonstracao()
 	printf("\nPos-ordem:\n");
 	arv_imprime_posordem(avri);
 	printf("\n_________________________________________________\n");
+	arv_libera(avri);
 }
 
 /**

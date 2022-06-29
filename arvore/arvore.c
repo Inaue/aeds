@@ -45,7 +45,7 @@ void arv_imprime_posordem(Arv *a){
 }
 
 Arv* arv_libera(Arv* a){
-	if(!arv_libera(a)){
+	if(!arv_vazia(a)){
 		arv_libera(a->esq);
 		arv_libera(a->dir);
 		free(a);
