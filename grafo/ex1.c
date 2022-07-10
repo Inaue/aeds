@@ -11,6 +11,7 @@
 
 /*  CODIGOS DE ERRO */
 #define EXECUTADO_COM_EXITO     0
+
 /*	CONSTANTES	*/
 #define VERDADEIRO	(1 == 1)
 #define FALSO		!VERDADEIRO
