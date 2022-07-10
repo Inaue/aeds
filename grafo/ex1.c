@@ -2,7 +2,7 @@
  * @file   ex1.c
  * @brief  RESOLUCAO DO EXERCICIO DE GRAFOS
  * @author Inaue Ferreira da Silva
- * @date   07-06-2022
+ * @date   07-10-2022
  */
 
 /*  CABECALHOS  */
