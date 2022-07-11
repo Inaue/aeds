@@ -49,9 +49,8 @@ int** alocarMatrizInt(int linhas, int colunas)
 		if (memoriaInsuficiente)
 		{
 			for (contadorLinhas = 0; contadorLinhas < linhas; contadorLinhas++)
-			{
 				free(ponteiroMatriz[contadorLinhas]);
-			}
+
 			free(ponteiroMatriz);
 			ponteiroMatriz = NULL;
 		}
@@ -69,11 +68,13 @@ int** alocarMatrizInt(int linhas, int colunas)
 void desalocarMatrizInt(int** matriz, int linhas)
 {
 	int contadorLinhas;
+
 	if (matriz != NULL)
 	{
 		for (contadorLinhas = 0; contadorLinhas < linhas; contadorLinhas++)
 			free(matriz[contadorLinhas]);
 	}
+
 	free(matriz);
 }
 
@@ -87,22 +88,47 @@ void desalocarMatrizInt(int** matriz, int linhas)
 int main(int argc, char** argv)
 {
 	int** grafo;
-	int v1, v2;
+	int v1, v2, seed;
 
 	printf("GRAFO ORIENTADO\n");
 	printf("____________________________________________________________\n");
+	printf("Digite um numero inteiro qualquer:\n");
+	scanf("%i", &seed);
+	srand(seed);
 	grafo = alocarMatrizInt(VERTICES, VERTICES);
 
 	for (v1 = 0; v1 < VERTICES; v1++)
 	{
 		for (v2 = v1+1; v2 < VERTICES; v2++)
 		{
-			printf("Digite 1 caso o servidor %i se comunique com o %i, e 0 caso contrario:\n", v1, v2);
-			scanf("%i", &(grafo[v1][v2]));
+			grafo[v1][v2] = rand() % 2;
+			grafo[v2][v1] = grafo[v1][v2];
 		}
 	}
 
 	printf("____________________________________________________________\n");
+	printf("Matriz Resultante (vertice x vertice):\n");
+
+	putchar('\t');
+
+	for (v2 = 0; v2 < VERTICES; v2++)
+		printf("%i\t", v2);
+	
+	putchar('\n');
+	printf(" _______________________________________________________________________________________\n");
+	
+	for (v1 = 0; v1 < VERTICES; v1++)
+	{
+		printf("%i|\t", v1);
+
+		for (v2 = 0; v2 < VERTICES; v2++)
+			printf("%i\t", grafo[v1][v2]);
+		
+		putchar('\n');
+	}
+	
+	printf("____________________________________________________________\n");
+	printf("Comunicacao entre servidores:\n");
 
 	for (v1 = 0; v1 < VERTICES; v1++)
 	{

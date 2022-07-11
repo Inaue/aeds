@@ -11,7 +11,7 @@ exercicio_3: ex3.o
 	gcc -o exercicio_3 ex3.o 
 
 ex1.o: ex1.c 
-	gcc -c ex1.c4
+	gcc -c ex1.c
 
 ex2.o: ex2.c lista.h 
 	gcc -c ex2.c
