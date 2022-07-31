@@ -94,7 +94,7 @@ int main(int argc, char** argv)
 
 	for (v = 0; v < vertices; v++)
 	{
-		printf("vertices conectados com o vertices %i: ", v);
+		printf("vertices conectados ao vertice %i: ", v);
 		lst_print(grafo[v]);
 	}
 
