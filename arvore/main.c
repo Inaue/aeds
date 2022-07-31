@@ -8,6 +8,7 @@
 /*  CABECALHOS  */
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include "arvore.h"
 
 /*  CODIGOS DE ERRO */
@@ -117,7 +118,7 @@ void arv_frequencia_c(Arv* Analisar, int* histograma)
 
 	for (c = 0; c < 26; c++)
 	{
-		if (Analisar->info == ('a' + c))
+		if (tolower(Analisar->info) == ('a' + c))
 		{
 			histograma[c]++;
 			break;
