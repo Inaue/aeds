@@ -90,6 +90,7 @@ int main(int argc, char** argv)
 	}
 
 	printf("____________________________________________________________\n");
+	printf("GRAFO RESULTANTE:\n");
 
 	for (v = 0; v < vertices; v++)
 	{
