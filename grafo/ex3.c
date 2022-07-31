@@ -15,7 +15,6 @@
 /*	CONSTANTES	*/
 #define VERDADEIRO	(1 == 1)
 #define FALSO		!VERDADEIRO
-#define VERTICES	10
 
 /*  FUNCOES     */
 /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
@@ -88,18 +87,20 @@ void desalocarMatrizInt(int** matriz, int linhas)
 int main(int argc, char** argv)
 {
 	int** grafo;
-	int v1, v2, seed;
+	int vertices, v1, v2, seed;
 
 	printf("GRAFO ORIENTADO\n");
 	printf("____________________________________________________________\n");
+	printf("Digite quantos vertices deseja no grafo:\n");
+	scanf("%i", &vertices);
 	printf("Digite um numero inteiro qualquer:\n");
 	scanf("%i", &seed);
 	srand(seed);
-	grafo = alocarMatrizInt(VERTICES, VERTICES);
+	grafo = alocarMatrizInt(vertices, vertices);
 
-	for (v1 = 0; v1 < VERTICES; v1++)
+	for (v1 = 0; v1 < vertices; v1++)
 	{
-		for (v2 = v1+1; v2 < VERTICES; v2++)
+		for (v2 = v1+1; v2 < vertices; v2++)
 		{
 			grafo[v1][v2] = rand() % 2;
 			grafo[v2][v1] = grafo[v1][v2];
@@ -108,20 +109,19 @@ int main(int argc, char** argv)
 
 	printf("____________________________________________________________\n");
 	printf("Matriz Resultante (vertice x vertice):\n");
-
 	putchar('\t');
 
-	for (v2 = 0; v2 < VERTICES; v2++)
+	for (v2 = 0; v2 < vertices; v2++)
 		printf("%i\t", v2);
 	
 	putchar('\n');
-	printf(" _______________________________________________________________________________________\n");
+	printf("  ______________________________________________________________________________________\n");
 	
-	for (v1 = 0; v1 < VERTICES; v1++)
+	for (v1 = 0; v1 < vertices; v1++)
 	{
 		printf("%i|\t", v1);
 
-		for (v2 = 0; v2 < VERTICES; v2++)
+		for (v2 = 0; v2 < vertices; v2++)
 			printf("%i\t", grafo[v1][v2]);
 		
 		putchar('\n');
@@ -130,16 +130,16 @@ int main(int argc, char** argv)
 	printf("____________________________________________________________\n");
 	printf("Comunicacao entre servidores:\n");
 
-	for (v1 = 0; v1 < VERTICES; v1++)
+	for (v1 = 0; v1 < vertices; v1++)
 	{
-		for (v2 = v1+1; v2 < VERTICES; v2++)
+		for (v2 = v1+1; v2 < vertices; v2++)
 		{
 			if (grafo[v1][v2] == 0)
 				printf("Servidores %i e %i nao estao se comunicando!\n", v1, v2);
 		}
 	}
 
-	desalocarMatrizInt(grafo, VERTICES);
+	desalocarMatrizInt(grafo, vertices);
 
 	return EXECUTADO_COM_EXITO;
 }

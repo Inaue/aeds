@@ -23,9 +23,23 @@
 
 int	main		(int argc, char** argv);
 int	grau_vertice	(Lista* vertice);
+void	lst_print	(Lista* lst_imprimir);
 
 /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
 
+void	lst_print	(Lista* lst_imprimir)
+{
+	Lista* item = lst_imprimir;
+
+	while(item != NULL)
+	{
+		printf("%i -> ", item->info);
+		item = item->prox;
+	}
+
+	printf("/\n");
+
+}
 int	grau_vertice	(Lista* vertice)
 {
 	int grau = 0;
@@ -50,12 +64,15 @@ int	grau_vertice	(Lista* vertice)
 int main(int argc, char** argv)
 {
 	Lista* grafo[MAX_VERTICES];
-	int vertices, v, v1, v2;
+	int vertices, v, v1, v2, seed;
 
 	printf("GRAFO NAO-ORIENTADO\n");
 	printf("____________________________________________________________\n");
 	printf("Digite quantos vertices deseja no grafo (max.: %i):\n", MAX_VERTICES);
 	scanf("%i", &vertices);
+	printf("Digite um numero inteiro qualquer:\n");
+	scanf("%i", &seed);
+	srand(seed);
 
 	for (v = 0; v < vertices; v++)
 		grafo[v] = lst_cria();
@@ -64,14 +81,20 @@ int main(int argc, char** argv)
 	{
 		for (v2 = v1+1; v2 < vertices; v2++)
 		{
-			printf("Digite 1 caso haja a aresta (%i,%i), e 0 caso contrario:\n", v1, v2);
-			scanf("%i", &v);
-			if (v == 1)
+			if ((rand() % 2) == 1)
 			{
 				grafo[v1] = lst_insere(grafo[v1], v2);
 				grafo[v2] = lst_insere(grafo[v2], v1);
 			}
 		}
+	}
+
+	printf("____________________________________________________________\n");
+
+	for (v = 0; v < vertices; v++)
+	{
+		printf("vertices conectados com o vertices %i: ", v);
+		lst_print(grafo[v]);
 	}
 
 	printf("____________________________________________________________\n");

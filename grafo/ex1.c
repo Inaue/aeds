@@ -124,23 +124,43 @@ int 	grau_saida	(int** grafo, int total_vertices, int vertice_calcular)
 int main(int argc, char** argv)
 {
 	int** grafo;
-	int vertices, v, v1, v2;
+	int vertices, v, v1, v2, seed;
 
 	printf("GRAFO ORIENTADO\n");
 	printf("____________________________________________________________\n");
 	printf("Digite quantos vertices deseja no grafo:\n");
 	scanf("%i", &vertices);
 	grafo = alocarMatrizInt(vertices, vertices);
+	printf("Digite um numero inteiro qualquer:\n");
+	scanf("%i", &seed);
+	srand(seed);
 
 	for (v1 = 0; v1 < vertices; v1++)
 	{
 		for (v2 = 0; v2 < vertices; v2++)
-		{
-			printf("Digite 1 caso haja a aresta (%i,%i), e 0 caso contrario:\n", v1, v2);
-			scanf("%i", &(grafo[v1][v2]));
-		}
+			grafo[v1][v2] = rand() % 2;
 	}
 
+	printf("____________________________________________________________\n");
+	printf("Matriz Resultante (vertice x vertice):\n");
+	putchar('\t');
+
+	for (v2 = 0; v2 < vertices; v2++)
+		printf("%i\t", v2);
+	
+	putchar('\n');
+	printf("  ______________________________________________________________________________________\n");
+	
+	for (v1 = 0; v1 < vertices; v1++)
+	{
+		printf("%i|\t", v1);
+
+		for (v2 = 0; v2 < vertices; v2++)
+			printf("%i\t", grafo[v1][v2]);
+		
+		putchar('\n');
+	}
+	
 	printf("____________________________________________________________\n");
 	printf("Digite o vertice de cujos graus deseja obter (-1 = SAIR):\n");
 	scanf("%i", &v);
