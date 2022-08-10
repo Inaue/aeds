@@ -16,21 +16,34 @@
 /*	CONSTANTES	*/
 #define VERDADEIRO	(1 == 1)
 #define FALSO		!VERDADEIRO
-#define DISTANCIA	0
-#define PREDECESSOR	1
-#define ESTADO		2
 #define NAO_PREENCHIDO	-1
 #define V_EXPLORAR	NAO_PREENCHIDO
 #define V_EXPLORADO	1
 #define VIZI_EXPLORADOS	2
 
-/*  FUNCOES     */
+/*	ESTRUTURAS	*/
+struct Info_bfs {
+	int distancia;
+	int estado;
+	int predecessor;
+};
+typedef struct Info_bfs Info_bfs;
+
+struct Info_dfs {
+	int timestamp[2];
+	int estado;
+	int predecessor;
+};
+typedef struct Info_dfs Info_dfs;
+
+/* 	FUNCOES     */
 /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
 
 int	main			(int argc, char** argv);
 int** 	alocarMatrizInt		(int linhas, int colunas);
 void	desalocarMatrizInt	(int** matriz, int linhas);
 void	grafo_bfs		(int** grafo, int total_vertices, int vertice_inicial, int** guardar_resultado);
+void	grafo_dfs		(int** grafo, int total_vertices, int vertice_inicial, int** guardar_resultado);
 
 /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
 /*
@@ -62,6 +75,12 @@ void	grafo_bfs		(int** grafo, int total_vertices, int vertice_inicial, int** gua
 	guardar_resultado[ESTADO][vertice_inicial] = VIZI_EXPLORADOS;
 }
 */
+
+void	grafo_dfs		(int** grafo, int total_vertices, int vertice_inicial, int** guardar_resultado)
+{
+
+}
+
 /**
  * @brief ALOCA ESPACO PARA MATRIZ DE INTEIROS
  *
