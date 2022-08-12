@@ -8,6 +8,7 @@
 /*  CABECALHOS  */
 #include <stdio.h>
 #include <stdlib.h>
+#include "fila.h"
 #include "lista.h"
 
 /*  CODIGOS DE ERRO */
@@ -40,8 +41,6 @@ typedef struct Info_dfs Info_dfs;
 /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
 
 int	main			(int argc, char** argv);
-int** 	alocarMatrizInt		(int linhas, int colunas);
-void	desalocarMatrizInt	(int** matriz, int linhas);
 void	grafo_bfs		(int** grafo, int total_vertices, int vertice_inicial, int** guardar_resultado);
 void	grafo_dfs		(int** grafo, int total_vertices, int vertice_inicial, int** guardar_resultado);
 
@@ -79,57 +78,6 @@ void	grafo_bfs		(int** grafo, int total_vertices, int vertice_inicial, int** gua
 void	grafo_dfs		(int** grafo, int total_vertices, int vertice_inicial, int** guardar_resultado)
 {
 
-}
-
-/**
- * @brief ALOCA ESPACO PARA MATRIZ DE INTEIROS
- *
- * @param linhas	QUANTIDADE DE LINHAS A ALOCAR
- * @param colunas	QUANTIDADE DE COLUNAS A ALOCAR
- * @return int**	ENDERECO DA MATRIZ
- */
-int** alocarMatrizInt(int linhas, int colunas)
-{
-	int** ponteiroMatriz = (int**)malloc(linhas * sizeof(int*));
-	int contadorLinhas, memoriaInsuficiente = FALSO;
-
-	if (ponteiroMatriz != NULL)
-	{
-		for (contadorLinhas = 0; contadorLinhas < linhas; contadorLinhas++)
-		{
-			ponteiroMatriz[contadorLinhas] = malloc(sizeof(int) * colunas);
-			memoriaInsuficiente = (memoriaInsuficiente || (ponteiroMatriz[contadorLinhas] == NULL));
-		}
-
-		if (memoriaInsuficiente)
-		{
-			for (contadorLinhas = 0; contadorLinhas < linhas; contadorLinhas++)
-			{
-				free(ponteiroMatriz[contadorLinhas]);
-			}
-			free(ponteiroMatriz);
-			ponteiroMatriz = NULL;
-		}
-	}
-
-	return ponteiroMatriz;
-}
-
-/**
- * @brief DESALOCA ESPACO DE MATRIZ DE INTEIROS
- *
- * @param matriz	MATRIZ
- * @param linhas	QUANTIDADE DE LINHAS DA MATRIZ
- */
-void desalocarMatrizInt(int** matriz, int linhas)
-{
-	int contadorLinhas;
-	if (matriz != NULL)
-	{
-		for (contadorLinhas = 0; contadorLinhas < linhas; contadorLinhas++)
-			free(matriz[contadorLinhas]);
-	}
-	free(matriz);
 }
 
 /**
@@ -187,8 +135,5 @@ int main(int argc, char** argv)
 		putchar('\n');
 	}
 	
-	desalocarMatrizInt(grafo, vertices);
-	desalocarMatrizInt(resultado_busca, 3);
-
 	return EXECUTADO_COM_EXITO;
 }
