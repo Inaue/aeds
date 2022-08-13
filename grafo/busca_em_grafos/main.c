@@ -41,8 +41,9 @@ typedef struct Info_dfs Info_dfs;
 /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
 
 int	main			(int argc, char** argv);
-void	grafo_bfs		(int** grafo, int total_vertices, int vertice_inicial, int** guardar_resultado);
-void	grafo_dfs		(int** grafo, int total_vertices, int vertice_inicial, int** guardar_resultado);
+void	grafo_bfs		(int** grafo, int total_vertices, int vertice_inicial, Info_bfs* guardar_resultado);
+void	grafo_dfs		(int** grafo, int total_vertices, int vertice_inicial, Info_dfs* guardar_resultado);
+void	lst_print		(Lista* lst_imprimir);
 
 /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
 /*
@@ -75,9 +76,27 @@ void	grafo_bfs		(int** grafo, int total_vertices, int vertice_inicial, int** gua
 }
 */
 
-void	grafo_dfs		(int** grafo, int total_vertices, int vertice_inicial, int** guardar_resultado)
+void	lst_print	(Lista* lst_imprimir)
 {
+	Lista* item = lst_imprimir;
 
+	while(item != NULL)
+	{
+		printf("%i -> ", item->info);
+		item = item->prox;
+	}
+
+	printf("/\n");
+
+}
+
+void	grafo_bfs		(int** grafo, int total_vertices, int vertice_inicial, Info_bfs* guardar_resultado)
+{
+	FilaL* vertices_explorar = fila_cria_l();
+
+	fila_insere_l(vertices_explorar, vertice_inicial);
+
+	fila_libera_l(vertices_explorar);
 }
 
 /**
@@ -89,51 +108,43 @@ void	grafo_dfs		(int** grafo, int total_vertices, int vertice_inicial, int** gua
  */
 int main(int argc, char** argv)
 {
-	int** grafo;
-	int** resultado_busca;
+	Lista** grafo;
+	Info_dfs* resultado_busca_dfs;
+	Info_bfs* resultado_busca_bfs;
 	int vertices, v, v1, v2, i, seed;
 
 	printf("GRAFO ORIENTADO\n");
 	printf("____________________________________________________________\n");
 	printf("Digite quantos vertices deseja no grafo:\n");
 	scanf("%i", &vertices);
-	grafo = alocarMatrizInt(vertices, vertices);
-	resultado_busca = alocarMatrizInt(3, vertices);
 	printf("Digite um numero inteiro qualquer:\n");
 	scanf("%i", &seed);
 	srand(seed);
 
-	for (i = 0; i < 3; i++)
-	{
-		for(v = 0; v < vertices; v++)
-			resultado_busca[i][v] = NAO_PREENCHIDO;
-	}
+	grafo = (Lista**)malloc(vertices * sizeof(Lista*));
+
+	for (v = 0; v < vertices; v++)
+		grafo[v] = lst_cria();
 
 	for (v1 = 0; v1 < vertices; v1++)
 	{
 		for (v2 = 0; v2 < vertices; v2++)
-			grafo[v1][v2] = rand() % 2;
+		{
+			if ((rand() % 2) == 1)
+				grafo[v1] = lst_insere(grafo[v1], v2);
+		}
 	}
 
 	printf("____________________________________________________________\n");
-	printf("Matriz Resultante (vertice x vertice):\n");
-	putchar('\t');
+	printf("GRAFO RESULTANTE:\n");
 
-	for (v2 = 0; v2 < vertices; v2++)
-		printf("%i\t", v2);
-	
-	putchar('\n');
-	printf("  ______________________________________________________________________________________\n");
-	
-	for (v1 = 0; v1 < vertices; v1++)
+	for (v = 0; v < vertices; v++)
 	{
-		printf("%i|\t", v1);
-
-		for (v2 = 0; v2 < vertices; v2++)
-			printf("%i\t", grafo[v1][v2]);
-		
-		putchar('\n');
+		printf("vertices 'destino' a partir do vertice %i: ", v);
+		lst_print(grafo[v]);
 	}
-	
+
+	free(grafo);
+
 	return EXECUTADO_COM_EXITO;
 }

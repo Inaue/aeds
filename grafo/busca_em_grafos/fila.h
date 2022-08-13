@@ -1,11 +1,13 @@
-#include "lista.h"
+struct listaF{
+	int info;
+	struct listaF *prox;
+};
+typedef struct listaF ListaF;
 
 struct filal{
-	Lista *ini;
-	Lista *fim;
+	ListaF *ini;
+	ListaF *fim;
 };
-
-
 
 typedef struct fila Fila;
 typedef struct filal FilaL;

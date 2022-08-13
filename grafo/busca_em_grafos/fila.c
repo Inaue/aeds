@@ -10,7 +10,7 @@ FilaL *fila_cria_l(){
 }
 
 void fila_insere_l(FilaL *f,int v){
-	Lista *n = (Lista *) malloc(sizeof(Lista));
+	ListaF *n = (ListaF *) malloc(sizeof(ListaF));
 	n->info=v;
 	n->prox = NULL;
 	if(f->fim != NULL) f->fim->prox = n;
@@ -19,7 +19,7 @@ void fila_insere_l(FilaL *f,int v){
 }
 
 int fila_retira_l(FilaL *f){
-	Lista *t;
+	ListaF *t;
 	int v;
 	if(fila_vazia_l(f)){
 		printf("Fila vazia!");
@@ -38,17 +38,17 @@ int fila_vazia_l(FilaL *f){
 }
 
 void fila_libera_l(FilaL *f){
-	Lista *q = f->ini;
+	ListaF *q = f->ini;
 	while(q!=NULL){
-		Lista *t = q->prox;
+		ListaF *t = q->prox;
 		free(q);
 		q = t;
 	}
 	free(f);
 }
 
-Lista* fila_busca_l(FilaL *fila, int informacao){
-	Lista *q;
+ListaF* fila_busca_l(FilaL *fila, int informacao){
+	ListaF *q;
 	for(q=fila->ini; q!=NULL; q=q->prox){
 		if(q->info==informacao){
 			return q;
