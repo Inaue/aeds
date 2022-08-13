@@ -172,6 +172,7 @@ int main(int argc, char** argv)
 		lst_print(grafo[v]);
 	}
 
+	grafo_bfs(grafo, vertices, origem, resultado_busca_bfs);
 	tempo = grafo_dfs(grafo, vertices, origem, resultado_busca_dfs);
 
 	for (origem = 0; origem < vertices; origem++)
@@ -184,12 +185,50 @@ int main(int argc, char** argv)
 	}
 
 	printf("____________________________________________________________\n");
-	printf("vertice\ttimestamp\tpredecessor\tvisitado\n");
+	printf("RESULTADO DAS PESQUISAS\n");
+	printf("____________________________________________________________\n");
+	printf("BUSCA EM LARGURA:\n");
+	printf("VERTICE\t\tDISTANCIA\tPREDECESSOR\tVISITADO\n");
 
 	for (v = 0; v < vertices; v++)
-		printf("%i\t%i/%i\t\t%i\t\t%i\n",
-				v, resultado_busca_dfs[v].timestamp[COMECO_BUSCA], resultado_busca_dfs[v].timestamp[FIM_BUSCA],
-				resultado_busca_dfs[v].predecessor, resultado_busca_dfs[v].visitado);
+	{
+		printf("%i\t|\t", v);
+		
+		if (resultado_busca_bfs[v].distancia == -1)
+			printf("-\t\t");
+		else
+			printf("%i\t\t", resultado_busca_bfs[v].distancia);
+		
+		if (resultado_busca_bfs[v].predecessor == -1)
+			printf("-\t\t");
+		else
+			printf("%i\t\t", resultado_busca_bfs[v].predecessor);
+		
+		if (resultado_busca_bfs[v].visitado)
+			printf("Sim\n");
+		else
+			printf("Nao\n");
+	}
+
+	printf("____________________________________________________________\n");
+	printf("BUSCA EM PROFUNDIDADE:\n");
+	printf("VERTICE\t\tTIMESTAMP\tPREDECESSOR\tVISITADO\n");
+
+	for (v = 0; v < vertices; v++)
+	{
+		printf("%i\t|\t", v);
+		printf("%i/%i\t\t", resultado_busca_dfs[v].timestamp[COMECO_BUSCA], resultado_busca_dfs[v].timestamp[FIM_BUSCA]);
+		
+		if (resultado_busca_dfs[v].predecessor == -1)
+			printf("-\t\t");
+		else
+			printf("%i\t\t", resultado_busca_dfs[v].predecessor);
+		
+		if (resultado_busca_dfs[v].visitado)
+			printf("Sim\n");
+		else
+			printf("Nao\n");
+	}
 
 	free(grafo);
 	free(resultado_busca_bfs);
