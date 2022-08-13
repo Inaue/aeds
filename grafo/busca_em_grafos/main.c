@@ -17,25 +17,21 @@
 /*	CONSTANTES	*/
 #define VERDADEIRO	(1 == 1)
 #define FALSO		!VERDADEIRO
-#define V_EXPLORANDO	0
-#define VIZINHOS_EXPLOR	1
 #define COMECO_BUSCA	0
 #define FIM_BUSCA	1
 #define NAO_PREENCHIDO	-1
-#define V_EXPLORAR	NAO_PREENCHIDO
-#define SEM_PREDECESSOR	NAO_PREENCHIDO
 
 /*	ESTRUTURAS	*/
 struct Info_bfs {
 	int distancia;
-	int estado;
+	int visitado;
 	int predecessor;
 };
 typedef struct Info_bfs Info_bfs;
 
 struct Info_dfs {
 	int timestamp[2];
-	int estado;
+	int visitado;
 	int predecessor;
 };
 typedef struct Info_dfs Info_dfs;
@@ -45,39 +41,32 @@ typedef struct Info_dfs Info_dfs;
 
 int	main			(int argc, char** argv);
 void	grafo_bfs		(Lista** grafo, int total_vertices, int v_inicial, Info_bfs* resultado);
-void	grafo_dfs		(Lista** grafo, int total_vertices, int v_inicial, Info_dfs* resultado);
+int	grafo_dfs		(Lista** grafo, int total_vertices, int v_inicial, Info_dfs* resultado);
 void	lst_print		(Lista* lst_imprimir);
 
 /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
-/*
-void	grafo_bfs		(int** grafo, int total_vertices, int v_inicial, int** resultado)
+
+int	grafo_dfs		(Lista** grafo, int total_vertices, int v_inicial, Info_dfs* resultado)
 {
-	int predecessor, v;
+	int tempo;
+	Lista* v_adjacente;
 
-	resultado[ESTADO][v_inicial] = V_EXPLORANDO;
-	
-	if (resultado[PREDECESSOR][v_inicial] == NAO_PREENCHIDO)
-	{
-		resultado[DISTANCIA][v_inicial] = 0;
-	}
-	else
-	{
-		predecessor = resultado[PREDECESSOR][v_inicial];
-		resultado[DISTANCIA][v_inicial] = resultado[DISTANCIA][predecessor] + 1;	
-	}
+	resultado[v_inicial].visitado = VERDADEIRO;
+	tempo = resultado[v_inicial].timestamp[COMECO_BUSCA] + 1;
 
-	for (v = 0; v < total_vertices; v++)
+	for (v_adjacente = grafo[v_inicial]; v_adjacente != NULL; v_adjacente = v_adjacente->prox)
 	{
-		if ((grafo[v_inicial][v] == 1) && (resultado[ESTADO][v] == V_EXPLORAR))
+		if (!resultado[v_adjacente->info].visitado)
 		{
-			resultado[PREDECESSOR][v] = v_inicial;
-			grafo_bfs(grafo, total_vertices, v, resultado);
+			resultado[v_adjacente->info].timestamp[COMECO_BUSCA] = tempo;
+			resultado[v_adjacente->info].predecessor = v_inicial;
+			tempo = grafo_dfs(grafo, total_vertices, v_adjacente->info, resultado);
 		}
 	}
 
-	resultado[ESTADO][v_inicial] = VIZI_EXPLORADOS;
+	resultado[v_inicial].timestamp[FIM_BUSCA] = tempo;
+	return tempo + 1;
 }
-*/
 
 void	lst_print	(Lista* lst_imprimir)
 {
@@ -100,8 +89,8 @@ void	grafo_bfs		(Lista** grafo, int total_vertices, int v_inicial, Info_bfs* res
 	Lista* v_adjacente;
 
 	fila_insere_l(vertices_explorando, v_inicial);
-	resultado[v_inicial].estado		= V_EXPLORANDO; 
-	resultado[v_inicial].predecessor	= SEM_PREDECESSOR;
+	resultado[v_inicial].visitado		= VERDADEIRO;
+	resultado[v_inicial].predecessor	= NAO_PREENCHIDO;
 	resultado[v_inicial].distancia		= 0;
 
 	do {
@@ -109,16 +98,16 @@ void	grafo_bfs		(Lista** grafo, int total_vertices, int v_inicial, Info_bfs* res
 
 		for (v_adjacente = grafo[v_explorando]; v_adjacente != NULL; v_adjacente = v_adjacente->prox)
 		{
-			if (resultado[v_adjacente->info].estado == V_EXPLORAR)
+			if (!resultado[v_adjacente->info].visitado)
 			{
 				resultado[v_adjacente->info].predecessor	= v_explorando;
-				resultado[v_adjacente->info].estado		= V_EXPLORANDO;
+				resultado[v_adjacente->info].visitado		= VERDADEIRO;
 				resultado[v_adjacente->info].distancia		= resultado[v_explorando].distancia + 1;
 				fila_insere_l(vertices_explorando, v_adjacente->info);
 			}
 		}
 
-		resultado[v_explorando].estado = VIZINHOS_EXPLOR;
+		resultado[v_explorando].visitado = VERDADEIRO;
 	} while (!fila_vazia_l(vertices_explorando));
 
 	fila_libera_l(vertices_explorando);
@@ -136,7 +125,7 @@ int main(int argc, char** argv)
 	Lista** grafo;
 	Info_bfs* resultado_busca_bfs;
 	Info_dfs* resultado_busca_dfs;
-	int vertices, v, v1, v2, origem, i, seed;
+	int vertices, v, v1, v2, origem, tempo, i, seed;
 
 	printf("GRAFO ORIENTADO\n");
 	printf("____________________________________________________________\n");
@@ -154,10 +143,16 @@ int main(int argc, char** argv)
 	for (v = 0; v < vertices; v++)
 	{
 		grafo[v] = lst_cria();
-		resultado_busca_bfs[v].estado		= NAO_PREENCHIDO;
-		resultado_busca_bfs[v].predecessor	= NAO_PREENCHIDO;
-		resultado_busca_bfs[v].distancia	= NAO_PREENCHIDO;
+		resultado_busca_bfs[v].visitado			= FALSO;
+		resultado_busca_bfs[v].predecessor		= NAO_PREENCHIDO;
+		resultado_busca_bfs[v].distancia		= NAO_PREENCHIDO;
+		resultado_busca_dfs[v].visitado			= FALSO;
+		resultado_busca_dfs[v].predecessor		= NAO_PREENCHIDO;
+		resultado_busca_dfs[v].timestamp[COMECO_BUSCA]	= NAO_PREENCHIDO;
+		resultado_busca_dfs[v].timestamp[FIM_BUSCA]	= NAO_PREENCHIDO;
 	}
+	
+	resultado_busca_dfs[origem].timestamp[COMECO_BUSCA] = 1;
 
 	for (v1 = 0; v1 < vertices; v1++)
 	{
@@ -177,12 +172,24 @@ int main(int argc, char** argv)
 		lst_print(grafo[v]);
 	}
 
+	tempo = grafo_dfs(grafo, vertices, origem, resultado_busca_dfs);
+
+	for (origem = 0; origem < vertices; origem++)
+	{
+		if (!resultado_busca_dfs[origem].visitado)
+		{
+			resultado_busca_dfs[origem].timestamp[COMECO_BUSCA] = tempo;
+			tempo = grafo_dfs(grafo, vertices, origem, resultado_busca_dfs);
+		}
+	}
+
 	printf("____________________________________________________________\n");
-	printf("vertice\tdistancia\tpredecessor\testado\n");
-	grafo_bfs(grafo, vertices, origem, resultado_busca_bfs);
+	printf("vertice\ttimestamp\tpredecessor\tvisitado\n");
 
 	for (v = 0; v < vertices; v++)
-		printf("%i\t%i\t\t%i\t\t%i\n", v, resultado_busca_bfs[v].distancia, resultado_busca_bfs[v].predecessor, resultado_busca_bfs[v].estado);
+		printf("%i\t%i/%i\t\t%i\t\t%i\n",
+				v, resultado_busca_dfs[v].timestamp[COMECO_BUSCA], resultado_busca_dfs[v].timestamp[FIM_BUSCA],
+				resultado_busca_dfs[v].predecessor, resultado_busca_dfs[v].visitado);
 
 	free(grafo);
 	free(resultado_busca_bfs);
