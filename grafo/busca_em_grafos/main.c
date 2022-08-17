@@ -2,7 +2,7 @@
  * @file   main.c
  * @brief  IMPLEMENTACAO DAS BUSCAS EM LARGURA E PROFUNDIDADE
  * @author Inaue Ferreira da Silva
- * @date   07-10-2022
+ * @date   08-13-2022
  */
 
 /*  CABECALHOS  */
