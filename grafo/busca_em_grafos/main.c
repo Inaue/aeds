@@ -41,12 +41,13 @@ typedef struct Info_dfs Info_dfs;
 
 int	main			(int argc, char** argv);
 void	grafo_bfs		(Lista** grafo, int total_vertices, int v_inicial, Info_bfs* resultado);
-int	grafo_dfs		(Lista** grafo, int total_vertices, int v_inicial, Info_dfs* resultado);
+void	grafo_dfs		(Lista** grafo, int total_vertices, int v_inicial, Info_dfs* resultado);
+int	dfs_recursao		(Lista** grafo, int total_vertices, int v_inicial, Info_dfs* resultado);
 void	lst_print		(Lista* lst_imprimir);
 
 /*  *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   */
 
-int	grafo_dfs		(Lista** grafo, int total_vertices, int v_inicial, Info_dfs* resultado)
+int	dfs_recursao		(Lista** grafo, int total_vertices, int v_inicial, Info_dfs* resultado)
 {
 	int tempo;
 	Lista* v_adjacente;
@@ -60,12 +61,26 @@ int	grafo_dfs		(Lista** grafo, int total_vertices, int v_inicial, Info_dfs* resu
 		{
 			resultado[v_adjacente->info].timestamp[COMECO_BUSCA] = tempo;
 			resultado[v_adjacente->info].predecessor = v_inicial;
-			tempo = grafo_dfs(grafo, total_vertices, v_adjacente->info, resultado);
+			tempo = dfs_recursao(grafo, total_vertices, v_adjacente->info, resultado);
 		}
 	}
 
 	resultado[v_inicial].timestamp[FIM_BUSCA] = tempo;
 	return tempo + 1;
+}
+
+void	grafo_dfs		(Lista** grafo, int total_vertices, int v_inicial, Info_dfs* resultado)
+{
+	int tempo = dfs_recursao(grafo, total_vertices, v_inicial, resultado);
+
+	for (v_inicial = 0; v_inicial < total_vertices; v_inicial++)
+	{
+		if (!resultado[v_inicial].visitado)
+		{
+			resultado[v_inicial].timestamp[COMECO_BUSCA] = tempo;
+			tempo = dfs_recursao(grafo, total_vertices, v_inicial, resultado);
+		}
+	}
 }
 
 void	lst_print	(Lista* lst_imprimir)
@@ -125,7 +140,7 @@ int main(int argc, char** argv)
 	Lista** grafo;
 	Info_bfs* resultado_busca_bfs;
 	Info_dfs* resultado_busca_dfs;
-	int vertices, v, v1, v2, origem, tempo, i, seed;
+	int vertices, v, v1, v2, origem, i, seed;
 
 	printf("GRAFO ORIENTADO\n");
 	printf("____________________________________________________________\n");
@@ -162,6 +177,9 @@ int main(int argc, char** argv)
 				grafo[v1] = lst_insere(grafo[v1], v2);
 		}
 	}
+	
+	grafo_bfs(grafo, vertices, origem, resultado_busca_bfs);
+	grafo_dfs(grafo, vertices, origem, resultado_busca_dfs);
 
 	printf("____________________________________________________________\n");
 	printf("GRAFO RESULTANTE:\n");
@@ -170,18 +188,6 @@ int main(int argc, char** argv)
 	{
 		printf("vertices 'destino' a partir do vertice %i: ", v);
 		lst_print(grafo[v]);
-	}
-
-	grafo_bfs(grafo, vertices, origem, resultado_busca_bfs);
-	tempo = grafo_dfs(grafo, vertices, origem, resultado_busca_dfs);
-
-	for (origem = 0; origem < vertices; origem++)
-	{
-		if (!resultado_busca_dfs[origem].visitado)
-		{
-			resultado_busca_dfs[origem].timestamp[COMECO_BUSCA] = tempo;
-			tempo = grafo_dfs(grafo, vertices, origem, resultado_busca_dfs);
-		}
 	}
 
 	printf("____________________________________________________________\n");
