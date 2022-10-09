@@ -14,7 +14,7 @@ class TestaEmpresa {
 		//Funcionario Fun_Exemplo2 = new Funcionario();
 		Funcionario Fun_Exemplo2 = Fun_Exemplo1;
 		
-		Fun_Exemplo1.mostra();
+		Fun_Exemplo1.mostrar();
 
 		if(Fun_Exemplo1 == Fun_Exemplo2)
 			System.out.println("Os funcionarios 1 e 2 sao identicos!");
@@ -47,7 +47,7 @@ class Funcionario {
 		this.rg			= r;
 	}
 
-	public void mostra() {
+	public void mostrar() {
 		System.out.println("_________________________________________________________________");
 		System.out.println("NOME:\t\t\t" + this.nome);
 		System.out.println("DEPARTAMENTO:\t\t" + this.departamento);
@@ -71,7 +71,7 @@ class Data {
 		this.ano = a;
 	}
 
-	public void definir_data(byte d, byte m, short a) {
+	public void definir(byte d, byte m, short a) {
 		this.dia = d;
 		this.mes = m;
 		this.ano = a;
@@ -116,6 +116,6 @@ class Empresa {
 		System.out.println("Funcionarios da Empresa");
 
 		for(Funcionario f : this.Func)
-			f.mostra();
+			f.mostrar();
 	}
 }
