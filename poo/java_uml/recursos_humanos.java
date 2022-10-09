@@ -1,10 +1,10 @@
 class RecursosHumanos {
 	public static void main(String[] args) {
-		Funcionario Fun_Exemplo1 = new Funcionario();
+		Data d1 = new Data((byte)9, (byte)10, (short)2022);
+		Funcionario Fun_Exemplo1 = new Funcionario("Josue Jacinto de Jesus", "Marketing", 5000.00, d1, "MG-23.844.308");
 		//Funcionario Fun_Exemplo2 = new Funcionario();
 		Funcionario Fun_Exemplo2 = Fun_Exemplo1;
 		
-		Fun_Exemplo1.definir_data_entrada((byte)05, (byte)10, (short)2022);
 		Fun_Exemplo1.mostra();
 
 		if(Fun_Exemplo1 == Fun_Exemplo2)
@@ -15,33 +15,66 @@ class RecursosHumanos {
 }
 
 class Funcionario {
-	String nome		= "Josue Jacinto de Jesus";
-	String departamento	= "Marketing";
-	double salario		= 5000.00;
+	private String nome;
+	private String departamento;
+	private double salario;
 	//String data_entrada	= "05/10/2022";
-	Data Data_Entrada	= new Data();
-	String rg		= "MG-23.844.308";
+	private Data Data_Entrada;
+	private String rg;
 
-	void mostra() {
+	Funcionario(String n, String dep, double sal, Data d_en, String r) {
+		this.nome = n;
+		this.departamento = dep;
+		this.salario = sal;
+		this.Data_Entrada = d_en;
+		this.rg = r;
+	}
+
+	public void mostra() {
 		System.out.println("_________________________________________________________________");
 		System.out.println("NOME:\t\t\t" + this.nome);
 		System.out.println("DEPARTAMENTO:\t\t" + this.departamento);
 		System.out.println("SALARIO (R$):\t\t" + this.salario);
 		//System.out.println("DATA DE ENTRADA:\t" + this.data_entrada);
-		System.out.println("DATA DE ENTRADA:\t" + this.Data_Entrada.dia + "/" + this.Data_Entrada.mes + "/" + this.Data_Entrada.ano);
-		System.out.println("RG:\t\t\t" + this.rg);
+		System.out.print("DATA DE ENTRADA:\t");
+		this.Data_Entrada.imprimir();
+		System.out.println("\nRG:\t\t\t" + this.rg);
 		System.out.println("_________________________________________________________________");
-	}
-
-	void definir_data_entrada(byte d, byte m, short a) {
-		this.Data_Entrada.dia = d;
-		this.Data_Entrada.mes = m;
-		this.Data_Entrada.ano = a;
 	}
 }
 
 class Data {
-	byte dia	= 01;
-	byte mes	= 01;
-	short ano	= 0001;
+	private byte dia	= 01;
+	private byte mes	= 01;
+	private short ano	= 0001;
+
+	Data(byte d, byte m, short a) {
+		this.dia = d;
+		this.mes = m;
+		this.ano = a;
+	}
+
+	public void definir_data(byte d, byte m, short a) {
+		this.dia = d;
+		this.mes = m;
+		this.ano = a;
+	}
+
+	public void imprimir() {
+		System.out.print(this.dia + "/" + this.mes + "/" + this.ano);
+	}
+}
+
+class Empresa {
+	private String nome;
+	private String cnpj;
+	private Funcionario[] Func;
+
+	Empresa() {
+	
+	}
+	
+	public void adicionar(Funcionario f) {
+	
+	}
 }
