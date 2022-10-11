@@ -4,23 +4,63 @@ class Teste_Estatistica {
 		Estatistica Resultados	= new Estatistica();
 
 		amostra[0] = 0.30f;
-		amostra[1] = 0.40f;
+		amostra[1] = 0.10f;
 		amostra[2] = 0.10f;
 		amostra[3] = 0.15f;
 		amostra[4] = 0.10f;
 		amostra[5] = 0.77f;
-		amostra[6] = 0.10f;
+		amostra[6] = 0.40f;
 		amostra[7] = 0.10f;
 		amostra[8] = 0.77f;
 		amostra[9] = 0.10f;
 
-		System.out.println(Resultados.mediana(amostra));
+		System.out.println(Resultados.moda(amostra));
 	}
 }
 
 class Estatistica {
 	public float moda(float[] dados) {
-		return 0.0f;
+		float[] ordem_crescente = new float[dados.length];
+		float aux;
+		int[] comeco_das_repeticoes = new int[dados.length];
+		int i = 0, j, centro, dados_distintos = 1, maior_frequencia = 0, mais_repete = 0;
+		
+		for(float d : dados)
+			ordem_crescente[i++] = d;
+
+		for(i = 0; i < ordem_crescente.length; i++)
+		{//BUBBLE SORT
+			for(j = ordem_crescente.length-1; j > i; j--)
+			{
+				if(ordem_crescente[j] < ordem_crescente[j-1])
+				{
+					aux = ordem_crescente[j];
+					ordem_crescente[j] = ordem_crescente[j-1];
+					ordem_crescente[j-1] = aux;
+				}
+			}
+		}
+
+		comeco_das_repeticoes[0] = 0;
+		
+		for(i = 1; i < ordem_crescente.length; i++)
+		{
+			if(ordem_crescente[i-1] != ordem_crescente[i])
+				comeco_das_repeticoes[dados_distintos++] = i;
+		}
+
+		for(i = 1; i < dados_distintos; i++)
+		{
+			if((comeco_das_repeticoes[i] - comeco_das_repeticoes[i-1]) > maior_frequencia)
+			{
+				maior_frequencia = comeco_das_repeticoes[i] - comeco_das_repeticoes[i-1];
+				mais_repete = i-1;
+			}
+		}
+
+		System.out.println(mais_repete);	
+
+		return ordem_crescente[mais_repete];
 	}
 
 	public float media(float[] dados) {
@@ -41,7 +81,7 @@ class Estatistica {
 			ordem_crescente[i++] = d;
 
 		for(i = 0; i < ordem_crescente.length; i++)
-		{
+		{//BLUBBLE SORT
 			for(j = ordem_crescente.length-1; j > i; j--)
 			{
 				if(ordem_crescente[j] < ordem_crescente[j-1])
@@ -54,10 +94,10 @@ class Estatistica {
 		}
 
 		centro = (ordem_crescente.length / 2);
+
 		if((ordem_crescente.length % 2) == 0)
-			return ((ordem_crescente[centro] + ordem_crescente[centro+1]) / 2);
+			return ((ordem_crescente[centro] + ordem_crescente[centro-1]) / 2);
 		else
 			return ordem_crescente[centro];
 	}
-
 }
