@@ -13,8 +13,14 @@ class Teste_Estatistica {
 		amostra[7] = 0.10f;
 		amostra[8] = 0.77f;
 		amostra[9] = 0.10f;
+		System.out.println("Dados:");
+		
+		for(float dados : amostra)
+			System.out.println(dados);
 
-		System.out.println(Resultados.moda(amostra));
+		System.out.println("Moda:\t" + Resultados.moda(amostra));
+		System.out.println("Media:\t" + Resultados.media(amostra));
+		System.out.println("Mediana:\t" + Resultados.mediana(amostra));
 	}
 }
 
@@ -56,9 +62,7 @@ class Estatistica {
 				maior_frequencia = comeco_das_repeticoes[i] - comeco_das_repeticoes[i-1];
 				mais_repete = i-1;
 			}
-		}
-
-		System.out.println(mais_repete);	
+		}	
 
 		return ordem_crescente[mais_repete];
 	}
