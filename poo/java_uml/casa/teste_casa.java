@@ -14,7 +14,7 @@ class Teste_Casa {
 		Porta_da_Fundos.destrancar();
 		Porta_da_Fundos.abrir();
 
-		System.out.println(Casa_dos_Sonhos.quantasPortasEstaoAbertas() + " das " + Casa_dos_Sonhos.totalDePortas() + " portas da casa estao abertas!");
+		System.out.println(Casa_dos_Sonhos.quantasPortasEstaoAbertas() + " das " + Casa_dos_Sonhos.totalDePortas() + " portas da casa de cor " + Casa_dos_Sonhos.obter_cor() + " estao abertas!");
 	}
 }
 
@@ -25,6 +25,10 @@ class Casa {
 
 	public void pintar(String c) {
 		this.cor = c;
+	}
+
+	public String obter_cor() {
+		return this.cor;
 	}
 
 	public int totalDePortas() {
