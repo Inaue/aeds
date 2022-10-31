@@ -1,19 +1,40 @@
 class Teste_Banco {
 	public static void main(String[] args) {
+		int contas_existentes, c;
+		int exemplo_referencia	= 2;
+		double selic_hoje	= 0.1375;// 13.75% a.a.
+		Conta exemplo_0		= new Conta();
 		Conta exemplo_1		= new Conta();
-		Conta exemplo_2		= new Conta();
-		ContaCorrente exemplo_3	= new ContaCorrente();
-		ContaPoupanca exemplo_4	= new ContaPoupanca();
+		ContaCorrente exemplo_2	= new ContaCorrente();
+		ContaPoupanca exemplo_3	= new ContaPoupanca();
+		Conta referencia_extra;
+		AtualizadorDeContas Atualizador_Exemplos = new AtualizadorDeContas(selic_hoje);
+		Banco Bank_Pay = new Banco();
 
-//		exemplo_1.depositar(1000000.00);
-//		exemplo_2.depositar(1000000.00);
-//		exemplo_3.depositar(1000000.00);
-//		exemplo_4.depositar(1000000.00);
+		exemplo_0.depositar(1000000.00);
+		exemplo_1.depositar(1000000.00);
+		exemplo_2.depositar(1000000.00);
+		exemplo_3.depositar(1000000.00);
+		exemplo_0.sacar(10.00);
+		Bank_Pay.adiciona(exemplo_0);
+		Bank_Pay.adiciona(exemplo_1);
+		Bank_Pay.adiciona(exemplo_2);
+		Bank_Pay.adiciona(exemplo_3);
+		referencia_extra	= Bank_Pay.pegaConta(exemplo_referencia);
+		contas_existentes	= Bank_Pay.pegaTotalDeContas();
+		System.out.println("Saldo da conta " + exemplo_referencia + ": $ " + referencia_extra.extrato());
+		System.out.println("________________________________________");
+		System.out.println("Meu banco possui " + contas_existentes + " contas.");
+		System.out.println("________________________________________");
+		System.out.println("Atualizacoes:");
 
-//		System.out.println(exemplo_1.extrato());
-//		System.out.println(exemplo_2.extrato());
-//		System.out.println(exemplo_3.extrato());
-//		System.out.println(exemplo_4.extrato());
+		for(c = 0; c < contas_existentes; c++) {
+			System.out.println("Conta " + c);
+			Atualizador_Exemplos.atualizar_conta(Bank_Pay.pegaConta(c));
+		}
+
+		System.out.println("________________________________________");
+		System.out.println("Saldo total do banco: $ " + Atualizador_Exemplos.obter_saldo_total());
 	}
 }
 
@@ -22,15 +43,15 @@ class Banco {
 	
 	public void adiciona(Conta c) {
 		Conta[] Novo_Espaco;
-		int i, total_de_contas = this.Contas_Clientes.length + 1;
+		int i, total_de_contas = this.Contas_Clientes.length;
 
-		Novo_Espaco = new Conta[total_de_contas];
+		Novo_Espaco = new Conta[total_de_contas + 1];
 		
 		for(i = 0; i < total_de_contas; i++)
 			Novo_Espaco[i] = this.Contas_Clientes[i];
 
 		this.Contas_Clientes = Novo_Espaco;
-		this.Contas_Clientes[total_de_contas] = c;
+		this.Contas_Clientes[total_de_contas++] = c;
 	}
 
 	public Conta pegaConta(int n) {
