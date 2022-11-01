@@ -116,19 +116,19 @@ class Conta {
 class ContaCorrente extends Conta {
 	@Override
 	public void atualizar(double taxa) {
-		this.saldo *= 1 + (2 * taxa);
+		super.atualizar(2 * taxa);
 	}
 
 	@Override
 	public void depositar(double valor) {
-		this.saldo += (valor - 0.10);
+		super.depositar(valor - 0.10);
 	}
 }
 
 class ContaPoupanca extends Conta {
 	@Override
 	public void atualizar(double taxa) {
-		this.saldo *= 1 + (3 * taxa);
+		super.atualizar(3 * taxa);
 	}
 }
 
