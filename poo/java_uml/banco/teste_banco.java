@@ -113,7 +113,7 @@ class Conta {
 	}
 }
 
-class ContaCorrente extends Conta {
+class ContaCorrente extends Conta implements Tributavel {
 	@Override
 	public void atualizar(double taxa) {
 		super.atualizar(2 * taxa);
@@ -122,6 +122,11 @@ class ContaCorrente extends Conta {
 	@Override
 	public void depositar(double valor) {
 		super.depositar(valor - 0.10);
+	}
+
+	public double calculaTributos()
+	{
+		return (this.saldo * (1.0 / 100));
 	}
 }
 
@@ -132,3 +137,22 @@ class ContaPoupanca extends Conta {
 	}
 }
 
+interface Tributavel
+{
+	double calculaTributos();
+}
+
+class SeguroDeVida implements Tributavel
+{
+	double mensalidade;
+
+	public SeguroDeVida(double mensal)
+	{
+		this.mensalidade = mensal;
+	}
+
+	public double calculaTributos()
+	{
+		return 42.00;
+	}
+}
