@@ -3,8 +3,8 @@ class Teste_Banco {
 		int contas_existentes, c;
 		int exemplo_referencia	= 2;
 		double selic_hoje	= 0.1375;// 13.75% a.a.
-		Conta exemplo_0		= new Conta();
-		Conta exemplo_1		= new Conta();
+		Conta exemplo_0		= new ContaCorrente();
+		Conta exemplo_1		= new ContaCorrente();
 		ContaCorrente exemplo_2	= new ContaCorrente();
 		ContaPoupanca exemplo_3	= new ContaPoupanca();
 		SeguroDeVida meu_seguro	= new SeguroDeVida(8.44);
@@ -99,7 +99,7 @@ class AtualizadorDeContas {
 	}
 }
 
-class Conta {
+abstract class Conta {
 	protected double saldo;
 
 	public double extrato() {
@@ -119,15 +119,13 @@ class Conta {
 		return pode_sacar;
 	}
 
-	public void atualizar(double taxa) {
-		this.saldo *= 1 + taxa;
-	}
+	abstract public void atualizar(double taxa);
 }
 
 class ContaCorrente extends Conta implements Tributavel {
 	@Override
 	public void atualizar(double taxa) {
-		super.atualizar(2 * taxa);
+		this.saldo *= 1 + (2 * taxa);
 	}
 
 	@Override
@@ -144,7 +142,7 @@ class ContaCorrente extends Conta implements Tributavel {
 class ContaPoupanca extends Conta {
 	@Override
 	public void atualizar(double taxa) {
-		super.atualizar(3 * taxa);
+		this.saldo *= 1 + (3 * taxa);
 	}
 }
 
