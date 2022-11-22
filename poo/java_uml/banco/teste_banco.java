@@ -7,6 +7,8 @@ class Teste_Banco {
 		Conta exemplo_1		= new Conta();
 		ContaCorrente exemplo_2	= new ContaCorrente();
 		ContaPoupanca exemplo_3	= new ContaPoupanca();
+		SeguroDeVida meu_seguro	= new SeguroDeVida(8.44);
+		GerenciadorDeIR meu_IR	= new GerenciadorDeIR();
 		Conta referencia_extra;
 		AtualizadorDeContas Atualizador_Exemplos = new AtualizadorDeContas(selic_hoje);
 		Banco Bank_Pay = new Banco();
@@ -15,13 +17,17 @@ class Teste_Banco {
 		exemplo_1.depositar(1000000.00);
 		exemplo_2.depositar(1000000.00);
 		exemplo_3.depositar(1000000.00);
+
 		exemplo_0.sacar(10.00);
+		
 		Bank_Pay.adiciona(exemplo_0);
 		Bank_Pay.adiciona(exemplo_1);
 		Bank_Pay.adiciona(exemplo_2);
 		Bank_Pay.adiciona(exemplo_3);
+
 		referencia_extra	= Bank_Pay.pegaConta(exemplo_referencia);
 		contas_existentes	= Bank_Pay.pegaTotalDeContas();
+
 		System.out.println("Saldo da conta " + exemplo_referencia + ": $ " + referencia_extra.extrato());
 		System.out.println("________________________________________");
 		System.out.println("Meu banco possui " + contas_existentes + " contas.");
@@ -33,8 +39,13 @@ class Teste_Banco {
 			Atualizador_Exemplos.atualizar_conta(Bank_Pay.pegaConta(c));
 		}
 
+		meu_IR.somar_tributo(exemplo_2);
+		meu_IR.somar_tributo(meu_seguro);
+
 		System.out.println("________________________________________");
 		System.out.println("Saldo total do banco: $ " + Atualizador_Exemplos.obter_saldo_total());
+		System.out.println("________________________________________");
+		System.out.println("Total de tributos a pagar: $ " + meu_IR.obter_saldo());
 	}
 }
 
@@ -156,3 +167,24 @@ class SeguroDeVida implements Tributavel
 		return 42.00;
 	}
 }
+
+class GerenciadorDeIR
+{
+	private double saldo = 0;
+
+	public void somar_tributo(Tributavel tributo)
+	{
+		this.saldo += tributo.calculaTributos();
+	}
+
+	public void anular_saldo()
+	{
+		this.saldo = 0;
+	}
+
+	public double obter_saldo()
+	{
+		return this.saldo;
+	}
+}
+
