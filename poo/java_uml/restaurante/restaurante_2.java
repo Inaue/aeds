@@ -5,8 +5,11 @@ class Teste_Restaurante
 		int i, num_ini_mesas	= 6;
 		String[] Pedido_Comida	= new String[8];
 		String[] Pedido_Bebida	= new String[4];
+		String[] Comida_VIP	= new String[4];
+		String[] Bebida_VIP	= new String[2];
 		Cliente[] Cli_Imprimir;
 		Cliente[] Novos		= new Cliente[2];
+		Cliente[] VIPs		= new Cliente[4];
 		Mesa[] Mesas_Redondas	= new Mesa[num_ini_mesas];
 		Comanda[] Comer		= new Comanda_Comida[num_ini_mesas];
 		Comanda[] Beber		= new Comanda_Bebida[num_ini_mesas];
@@ -43,10 +46,10 @@ class Teste_Restaurante
 			Mesas_Redondas[i].definir_bebida(Beber[i]);
 
 		Mesas_Redondas[3].reservar("26/11/2022");
-		Novos[0] = new Cliente("Virginia", "virginia@teiacoltec.org");
+		Novos[0] = new Cliente("Rita", "rita@teiacoltec.org");
 		Novos[1] = new Cliente();
-		Novos[1].definir_nome("Rita");
-		Novos[1].definir_email("rita@teiacoltec.org");
+		Novos[1].definir_nome("Leandro");
+		Novos[1].definir_email("elmaia@teiacoltec.org");
 		Pedido_Comida[0] = "Salada de Alface";
 		Pedido_Comida[1] = "Ariticum";
 		Pedido_Comida[2] = "Picanha";
@@ -67,7 +70,28 @@ class Teste_Restaurante
 		Cmd_Manipular_2.definir_clientes(Novos);
 		Cmd_Manipular_2.definir_consumo(Pedido_Bebida);
 		Cmd_Manipular_2.definir_valor(20.00);
-		Cli_Imprimir = Cmd_Manipular_1.obter_clientes();
+
+		Mesas_Redondas[5].reservar("03/12/2022");
+		VIPs[0] = new Cliente("Virginia", "virginia@teiacoltec.org");
+		VIPs[1] = new Cliente("Lucas", "lucas@teiacoltec.org");
+		VIPs[2] = new Cliente("Marcio", "marcio@teiacoltec.org");
+		VIPs[3] = new Cliente();
+		VIPs[3].definir_nome("Humberto");
+		VIPs[3].definir_email("hh@teiacoltec.org");
+		Comida_VIP[0] = "Camarao";
+		Comida_VIP[1] = "Caranguejo";
+		Comida_VIP[2] = "Esfirra";
+		Comida_VIP[3] = "Mandioca";
+		Bebida_VIP[0] = "Agua Gaseificada";
+		Bebida_VIP[1] = "Suco de Maracuja";
+		Cmd_Manipular_1 = Mesas_Redondas[5].obter_comida();
+		Cmd_Manipular_1.definir_clientes(VIPs);
+		Cmd_Manipular_1.definir_consumo(Comida_VIP);
+		Cmd_Manipular_1.definir_valor(70.00);
+		Cmd_Manipular_2 = Mesas_Redondas[5].obter_bebida();
+		Cmd_Manipular_2.definir_clientes(VIPs);
+		Cmd_Manipular_2.definir_consumo(Bebida_VIP);
+		Cmd_Manipular_2.definir_valor(11.00);
 
 		for(Mesa m : Mesas_Redondas)
 		{
@@ -77,8 +101,33 @@ class Teste_Restaurante
 				System.out.println("A mesa " + m.obter_num_mesa() + " nao esta reservada.");
 		}
 
+		Cmd_Manipular_1	= Mesas_Redondas[3].obter_comida();
+		Cmd_Manipular_2	= Mesas_Redondas[3].obter_bebida();
+		Cli_Imprimir	= Cmd_Manipular_1.obter_clientes();
+
 		System.out.println("______________________________________________________");
 		System.out.println("Clientes da Mesa 3:");
+
+		for(Cliente c : Cli_Imprimir)
+			System.out.println("Nome: " + c.obter_nome() + "\t|\tEmail: " + c.obter_email());
+
+		System.out.println("______________________________________________________");
+		System.out.println("Itens de Consumo:");
+		Cmd_Manipular_1.listar_consumo();
+		Cmd_Manipular_2.listar_consumo();
+		System.out.println("______________________________________________________");
+		System.out.println("Valor Total Gasto\t: R$ " + (Cmd_Manipular_1.obter_valor() + Cmd_Manipular_2.obter_valor()));
+		Cmd_Manipular_1.definir_valor(Cmd_Manipular_1.obter_valor() - Cmd_Manipular_1.calcular10porcento());
+		Cmd_Manipular_2.definir_valor(Cmd_Manipular_2.obter_valor() - Cmd_Manipular_2.calcular10porcento());
+		System.out.println("Com Desconto de 10%\t: R$ " + (Cmd_Manipular_1.obter_valor() + Cmd_Manipular_2.obter_valor()));
+		System.out.println("Valor Por Pessoa\t: R$ " + (Cmd_Manipular_1.dividirConta() + Cmd_Manipular_2.dividirConta()));
+		System.out.println("______________________________________________________");
+
+		Cmd_Manipular_1	= Mesas_Redondas[5].obter_comida();
+		Cmd_Manipular_2	= Mesas_Redondas[5].obter_bebida();
+		Cli_Imprimir	= Cmd_Manipular_1.obter_clientes();
+
+		System.out.println("Clientes da Mesa 5:");
 
 		for(Cliente c : Cli_Imprimir)
 			System.out.println("Nome: " + c.obter_nome() + "\t|\tEmail: " + c.obter_email());
