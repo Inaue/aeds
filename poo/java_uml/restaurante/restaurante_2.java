@@ -319,128 +319,57 @@ interface Lista_Produtos
 
 abstract class Comanda implements Lista_Produtos
 {
-	protected String[] consumo;
 	protected double valor;
+	protected String[] consumo;
 	protected Cliente[] Clientes_da_Mesa;
 	
-	abstract public Cliente[]	obter_clientes		();
-	abstract public void		definir_clientes	(Cliente[] Clientes_Definir);
-	abstract public double		calcular10porcento	();
-	abstract public double		dividirConta		();
-}
-
-class Comanda_Bebida extends Comanda
-{
-	@Override
 	public double obter_valor()
 	{
 		return this.valor;
 	}
 
-	@Override
 	public String[] obter_consumo()
 	{
 		return this.consumo;
 	}
 
-	@Override
 	public Cliente[] obter_clientes()
 	{
 		return this.Clientes_da_Mesa;
 	}
 
-	@Override
 	public void definir_consumo(String[] consumo_cliente)
 	{
 		this.consumo = consumo_cliente;
 	}
 
-	@Override
 	public void definir_valor(double valor_pagar)
 	{
 		this.valor = valor_pagar;
 	}
 
-	@Override
 	public void definir_clientes(Cliente[] Clientes_Definir)
 	{
 		this.Clientes_da_Mesa = Clientes_Definir;
 	}
 
-	@Override
 	public void listar_consumo()
 	{
 		for(String c : this.consumo)
 			System.out.println(c);
 	}
 
-	@Override
 	public double calcular10porcento()
 	{
 		return (this.valor / 10);
 	}
 
-	@Override
 	public double dividirConta()
 	{
 		return (this.valor / Clientes_da_Mesa.length);
 	}
 }
 
-class Comanda_Comida extends Comanda
-{
-	@Override
-	public double obter_valor()
-	{
-		return this.valor;
-	}
+class Comanda_Bebida extends Comanda {}
 
-	@Override
-	public String[] obter_consumo()
-	{
-		return this.consumo;
-	}
-
-	@Override
-	public Cliente[] obter_clientes()
-	{
-		return this.Clientes_da_Mesa;
-	}
-
-	@Override
-	public void definir_consumo(String[] consumo_cliente)
-	{
-		this.consumo = consumo_cliente;
-	}
-
-	@Override
-	public void definir_valor(double valor_pagar)
-	{
-		this.valor = valor_pagar;
-	}
-
-	@Override
-	public void definir_clientes(Cliente[] Clientes_Definir)
-	{
-		this.Clientes_da_Mesa = Clientes_Definir;
-	}
-
-	@Override
-	public void listar_consumo()
-	{
-		for(String c : this.consumo)
-			System.out.println(c);
-	}
-
-	@Override
-	public double calcular10porcento()
-	{
-		return (this.valor / 10);
-	}
-
-	@Override
-	public double dividirConta()
-	{
-		return (this.valor / Clientes_da_Mesa.length);
-	}
-}
+class Comanda_Comida extends Comanda {}
